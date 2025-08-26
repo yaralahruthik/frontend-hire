@@ -1,0 +1,71 @@
+---
+title: Github SSH Setup
+description: Quick write-up on setting up github ssh
+---
+
+<Callout title="AI-powered write-up, verify yourself!" type="warn">
+  This is one of those things, most developers (including me) just install and
+  use without thinking about it. So, just doing quick-AI write-up to learn it.
+</Callout>
+
+The developer's most used tool was Github, so every time you push your changes you will be asked to enter your Github details which is a tiresome work so setting an ssh key to your Github will make your life a lot easier.
+
+## Through the following commands you can easily setup ssh for GitHub in Linux
+
+- Open Your terminal and set the following
+
+```bash
+git config --global user.name 'Your GitHub username'
+git config --global user.email 'your GitHub associated email'
+```
+
+- After this step check if you have any SSH keys present locally by this commad.
+
+```bash
+ls ~/.ssh
+```
+
+- Now you have to generate ssh key in your terminal with the following command and click as enter for all the options as default values willl be enough for creating a ssh key
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_github_email@example.com"
+```
+
+- Now you have to copy the ssh and paste it in your github ssh settings, we can copy the ssh key easily using xclip.
+- First install XCLIP through the following command
+
+```bash
+sudo apt-get install xclip
+```
+
+- Now copy your ssh key using xclip by this command
+
+```bash
+xclip -sel clip < ~/.ssh/id_rsa.pub
+```
+
+- Now open your GitHub account in the browser go to settings and select SSH and GPG Keys from the left sidebar.
+- Now Click New SSH Key button.
+- Now enter Your title and enter the copied ssh key from earlier.
+
+![ssh_github.png](public/github_ssh.png)
+
+- Now open your terminal and Check the ssh key using this command.
+
+```bash
+ssh -T git@github.com
+```
+
+- After this, you will be prompted with this text
+
+```bash
+Hi Username! You've successfully authenticated, but Github does not support shell access.
+```
+
+### Refernce
+
+If you are struck anywhere, please refer to this video tutorial https://www.youtube.com/watch?v=HfTXHrWMGVY.
+
+### Conclusion
+
+Please try to use SSH for GitHub as it makes a life a lot easier and secure.
