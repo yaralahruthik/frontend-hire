@@ -5,6 +5,6 @@
     "node-and-version-managers",
     "corepack",
     "pnpm",
-    "..."
+    "...(git-github)"
   ]
 }
