@@ -22,10 +22,10 @@ export const source = loader({
         | undefined;
 
       node.name = (
-        <span className="flex flex-wrap items-center justify-between gap-2">
+        <span>
           {meta?.data.title}
           {castedMetaData && castedMetaData.isNew && (
-            <span className="bg-fd-muted-foreground text-fd-muted rounded-sm px-1 py-0.5 text-xs motion-safe:animate-pulse">
+            <span className="bg-fd-muted-foreground text-fd-muted ml-2 rounded-sm px-1 py-0.5 text-xs motion-safe:animate-pulse">
               NEW
             </span>
           )}
