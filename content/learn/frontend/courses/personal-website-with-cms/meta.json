@@ -1,5 +1,6 @@
 {
-  "title": "Personal Website with CMS",
-  "description": "Build an Astro-based personal website with CMS",
-  "pages": ["overview", "setup-pages-cms", "summary"]
+  "title": "Zero-cost CMS website",
+  "description": "Build an Astro and Git-based CMS website",
+  "pages": ["overview", "setup-pages-cms", "summary"],
+  "isNew": true
 }
