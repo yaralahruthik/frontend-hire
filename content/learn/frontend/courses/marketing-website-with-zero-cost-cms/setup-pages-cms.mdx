@@ -138,7 +138,7 @@ Let us first try to have a look at our assets (images in this case) through Page
 1. We tell Pages CMS, the location of our Media (assets) with `input`, and the relative path with the `output` (we will talk more about `output` soon).
 
 ```yml title=".pages.yml"
-media: blog/assets
+media:
   input: blog/assets
   output: assets
 ```
@@ -160,7 +160,7 @@ So, you should be getting the idea of how Pages CMS works. Let us now try to als
 1. Just like our `media` setup, we will add a new key `content` in our settings.
 
 ```yml title=".pages.yml"
-media: blog/assets
+media:
   input: blog/assets
   output: assets
 <!--[!code ++:4]-->
