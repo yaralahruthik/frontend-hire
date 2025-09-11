@@ -135,7 +135,13 @@ Let us first try to have a look at our assets (images in this case) through Page
 
 ### Media
 
-1. We tell Pages CMS, the location of our Media (assets) with `input`, and the relative path with the `output` (we will talk about `output` more soon).
+1. We tell Pages CMS, the location of our Media (assets) with `input`, and the relative path with the `output` (we will talk more about `output` soon).
+
+```yml title=".pages.yml"
+media: blog/assets
+  input: blog/assets
+  output: assets
+```
 
 ![](./assets/6.webp)
 
@@ -151,9 +157,26 @@ So, you should be getting the idea of how Pages CMS works. Let us now try to als
 
 ### Content
 
+1. Just like our `media` setup, we will add a new key `content` in our settings.
+
+```yml title=".pages.yml"
+media: blog/assets
+  input: blog/assets
+  output: assets
+<!--[!code ++:4]-->
+content:
+  - name: posts
+    type: collections
+    path: blog
+```
+
 ![](./assets/9.webp)
 
+2. Save, and you should immediately see a `posts` tab on the dashboard.
+
 ![](./assets/10.webp)
+
+3. Try editing one of the posts.
 
 ![](./assets/11.webp)
 
@@ -161,6 +184,177 @@ So, you should be getting the idea of how Pages CMS works. Let us now try to als
 
 ![](./assets/13.webp)
 
+4. There should be commit when you save the changes.
+
 ![](./assets/14.webp)
 
 ![](./assets/15.webp)
+
+5. Let us have a way better view and editing interface.
+
+```yml title=".pages.yml"
+media:
+  input: blog/assets
+  output: assets
+content:
+  - name: posts
+    type: collection
+    path: blog
+    <!--[!code ++:15]-->
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published Date
+        type: date
+      - name: heroImage
+        label: Hero Image
+        type: image
+    view:
+      fields: [title, description, pubDate, heroImage]
+```
+
+![](./assets/16.webp)
+
+![](./assets/17.webp)
+
+6. Hmm, the images are broken. This is where understanding the `output` of `media` is important. This should translate to the relative location of the asset to your content file. So, in our case that is `./assets`
+
+```yml title=".pages.yml"
+media:
+  input: blog/assets
+  # [!code ++]
+  output: ./assets
+  # [!code --]
+  output: assets
+content:
+  - name: posts
+    type: collection
+    path: blog
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published Date
+        type: date
+      - name: heroImage
+        label: Hero Image
+        type: image
+    view:
+      fields: [title, description, pubDate, heroImage]
+```
+
+![](./assets/18.webp)
+
+![](./assets/19.webp)
+
+7. But dates are still broken. Let us see why.
+
+![](./assets/20.webp)
+
+![](./assets/21.webp)
+
+8. Ahaan, we have a different format than `dd/mm/yyyy`, luckily the author of Pages CMS gave us an option to configure this too!
+
+```yml title=".pages.yml"
+media:
+  input: blog/assets
+  output: ./assets
+content:
+  - name: posts
+    type: collection
+    path: blog
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published Date
+        type: date
+        # [!code ++:2]
+        options:
+          format: MMM dd yyyy
+      - name: heroImage
+        label: Hero Image
+        type: image
+    view:
+      fields: [title, description, pubDate, heroImage]
+```
+
+![](./assets/22.webp)
+
+![](./assets/23.webp)
+
+9. Perfect! Let us do a final touch and bring in the `rich-text` block for the major content.
+
+```yml title=".pages.yml"
+media:
+  input: blog/assets
+  output: ./assets
+content:
+  - name: posts
+    type: collection
+    path: blog
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Published Date
+        type: date
+        options:
+          format: MMM dd yyyy
+      - name: heroImage
+        label: Hero Image
+        type: image
+        # [!code ++:3]
+      - name: body
+        label: Body
+        type: rich-text
+    view:
+      fields: [title, description, pubDate, heroImage]
+```
+
+![](./assets/24.webp)
+
+![](./assets/25.webp)
+
+10. This is a nice editor with good `/` support to add markdown nodes!
+
+![](./assets/26.webp)
+
+## Invite collaborators
+
+Now, how do you give your team the access to edit this content without them having GitHub account and go through the whole permissions thing?
+
+Well, the author gave us a flow to invite your team through email!
+
+![](./assets/27.webp)
+
+![](./assets/28.webp)
+
+## More features are in the pipeline
+
+This is a great product in our opinion and one to support and keep an eye on!
+
+![](./assets/29.webp)
+
+## Support the author!
+
+[Ronan Berder](https://github.com/hunvreus) is the person behind this amazing project! If you like it and you use it in some capacity, consider sponsoring!
+
+![](./assets/30.webp)
