@@ -1,5 +1,5 @@
 {
-  "title": "Zero-cost CMS website",
+  "title": "Markting website with zero-cost CMS",
   "description": "Build an Astro and Git-based CMS website",
   "pages": ["overview", "setup-pages-cms", "summary"],
   "isNew": true
