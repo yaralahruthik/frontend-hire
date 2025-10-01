@@ -37,9 +37,9 @@ export type ContentOverviewKeyType =
 
 export const ADVERTISEMENTS: AdvertisementType = {
   TOP_BANNER: {
-    id: 'fh-stackpack',
-    content: 'Our Feature Flags course is now live!',
-    url: 'https://youtu.be/MyEAsukNlYQ',
+    id: 'fh-astro-cms',
+    content: 'Our Astro and Zero-cost CMS course is live now!',
+    url: 'https://youtu.be/-3Jl1c1uAjI?si=Ydc9qG423i59r_Ad',
   },
   HOME_PAGE: {
     id: 'affiliate-interview-ready-ai-engineering',
