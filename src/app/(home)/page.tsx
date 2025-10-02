@@ -1,6 +1,7 @@
-import { ADVERTISEMENTS } from '@/advertisements';
-import PageAdvertisement from '@/features/advertise/page-advertisement';
+import AstroLogoDark from '@/assets/astro-logo-dark.svg';
+import AstroLogoLight from '@/assets/astro-logo-light.svg';
 import { buttonVariants } from 'fumadocs-ui/components/ui/button';
+import Image from 'next/image';
 import Link from 'next/link';
 
 function SupportUsButton() {
@@ -35,10 +36,32 @@ function SupportUsButton() {
   );
 }
 
+function SocialProof() {
+  return (
+    <section className="px-2 py-5">
+      <div className="flex flex-col items-center gap-4">
+        <h3 className="text-fd-muted-foreground font-semibold">Featured On</h3>
+        <div className="grid items-center gap-8 opacity-60">
+          <Image
+            src={AstroLogoLight}
+            className="hidden h-10 w-fit dark:inline"
+            alt="Astro"
+          />
+          <Image
+            src={AstroLogoDark}
+            className="inline h-10 w-fit dark:hidden"
+            alt="Astro"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
-    <main className="flex flex-1 flex-col justify-center px-4">
-      <section className="flex grow flex-col items-center justify-center gap-8">
+    <main className="container flex grow flex-col py-4">
+      <section className="flex grow flex-col items-center justify-center gap-10">
         <div className="flex flex-col gap-2 text-center">
           <SupportUsButton />
           <h1 className="text-3xl font-black">
@@ -64,10 +87,9 @@ export default function HomePage() {
             Learn Now
           </Link>
         </div>
-        <div className="w-full max-w-xl">
-          <PageAdvertisement advertisement={ADVERTISEMENTS.HOME_PAGE} />
-        </div>
       </section>
+
+      <SocialProof />
     </main>
   );
 }
