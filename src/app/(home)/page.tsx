@@ -36,6 +36,38 @@ function SupportUsButton() {
   );
 }
 
+function HeroSection() {
+  return (
+    <section className="flex grow flex-col items-center justify-center gap-10">
+      <div className="flex flex-col gap-2 text-center">
+        <SupportUsButton />
+        <h1 className="text-3xl font-black">
+          100% Free & Open-Source Learning Platform for Frontend Developers
+        </h1>
+        <h2 className="text-xl font-bold">
+          Work on Practical Stuff And Get Hired or Build Your Own Product
+        </h2>
+      </div>
+
+      <div className="flex flex-col gap-4 sm:flex-row">
+        <Link
+          className={buttonVariants({ color: 'secondary' })}
+          href="https://discord.gg/DWAVqksVtx"
+          target="_blank"
+        >
+          Join Discord Community
+        </Link>
+        <Link
+          className={buttonVariants({ color: 'primary' })}
+          href="/learn/frontend"
+        >
+          Learn Now
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 function SocialProof() {
   return (
     <section className="px-2 py-5">
@@ -61,33 +93,7 @@ function SocialProof() {
 export default function HomePage() {
   return (
     <main className="container flex grow flex-col py-4">
-      <section className="flex grow flex-col items-center justify-center gap-10">
-        <div className="flex flex-col gap-2 text-center">
-          <SupportUsButton />
-          <h1 className="text-3xl font-black">
-            100% Free & Open-Source Learning Platform for Frontend Developers
-          </h1>
-          <h2 className="text-xl font-bold">
-            Work on Practical Stuff And Get Hired or Build Your Own Product
-          </h2>
-        </div>
-
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <Link
-            className={buttonVariants({ color: 'secondary' })}
-            href="https://discord.gg/DWAVqksVtx"
-            target="_blank"
-          >
-            Join Discord Community
-          </Link>
-          <Link
-            className={buttonVariants({ color: 'primary' })}
-            href="/learn/frontend"
-          >
-            Learn Now
-          </Link>
-        </div>
-      </section>
+      <HeroSection />
 
       <SocialProof />
     </main>
