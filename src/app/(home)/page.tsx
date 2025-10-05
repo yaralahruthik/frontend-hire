@@ -8,12 +8,14 @@ function SupportUsButton() {
   return (
     <Link
       href="https://www.buymeacoffee.com/iamyhr"
-      className="group relative mx-auto mt-4 inline-block w-fit cursor-pointer rounded-full bg-slate-800 p-px text-xs leading-6 font-semibold text-white no-underline shadow-2xl shadow-zinc-900 sm:mt-0"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative mx-auto inline-block w-fit cursor-pointer rounded-full bg-slate-800 p-px text-xs font-semibold text-white no-underline shadow-2xl shadow-zinc-900"
     >
       <span className="absolute inset-0 overflow-hidden rounded-full">
-        <span className="absolute inset-0 rounded-full bg-[image:radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        <span className="absolute inset-0 rounded-full bg-[radial-gradient(75%_100%_at_50%_0%,rgba(56,189,248,0.6)_0%,rgba(56,189,248,0)_75%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       </span>
-      <div className="relative z-10 flex items-center space-x-2 rounded-full bg-zinc-950 px-4 py-0.5 ring-1 ring-white/10">
+      <div className="relative z-10 flex items-center space-x-2 rounded-full bg-zinc-950 px-4 py-1 ring-1 ring-white/10">
         <span>Support Us</span>
         <svg
           fill="none"
@@ -38,14 +40,14 @@ function SupportUsButton() {
 
 function HeroSection() {
   return (
-    <section className="flex grow flex-col items-center justify-center gap-10">
-      <div className="flex flex-col gap-2 text-center">
+    <section className="flex h-[calc(100svh-3.5rem)] flex-col items-center justify-center gap-10 px-4 text-center">
+      <div className="flex flex-col gap-3">
         <SupportUsButton />
-        <h1 className="text-3xl font-black">
+        <h1 className="text-3xl font-black sm:text-4xl">
           100% Free & Open-Source Learning Platform for Frontend Developers
         </h1>
-        <h2 className="text-xl font-bold">
-          Work on Practical Stuff And Get Hired or Build Your Own Product
+        <h2 className="text-muted-foreground text-lg font-semibold sm:text-xl">
+          Work on practical projects and get hired — or build your own product.
         </h2>
       </div>
 
@@ -54,6 +56,7 @@ function HeroSection() {
           className={buttonVariants({ color: 'secondary' })}
           href="https://discord.gg/DWAVqksVtx"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Join Discord Community
         </Link>
@@ -64,24 +67,25 @@ function HeroSection() {
           Learn Now
         </Link>
       </div>
+      <SocialProof />
     </section>
   );
 }
 
 function SocialProof() {
   return (
-    <section className="px-2 py-5">
-      <div className="flex flex-col items-center gap-4">
+    <section className="px-2 py-10">
+      <div className="flex flex-col items-center gap-6">
         <h3 className="text-fd-muted-foreground font-semibold">Featured On</h3>
         <div className="grid items-center gap-8 opacity-60">
           <Image
             src={AstroLogoLight}
-            className="hidden h-10 w-fit dark:inline"
+            className="hidden h-10 dark:inline"
             alt="Astro"
           />
           <Image
             src={AstroLogoDark}
-            className="inline h-10 w-fit dark:hidden"
+            className="inline h-10 dark:hidden"
             alt="Astro"
           />
         </div>
@@ -90,12 +94,22 @@ function SocialProof() {
   );
 }
 
+function AboutSection() {
+  return (
+    <section className="px-6 py-16 text-center">
+      <h2 className="mb-4 text-2xl font-bold">
+        Who is building Frontend Hire?
+      </h2>
+    </section>
+  );
+}
+
 export default function HomePage() {
   return (
-    <main className="container flex grow flex-col py-4">
+    <main className="container flex grow flex-col">
       <HeroSection />
 
-      <SocialProof />
+      <AboutSection />
     </main>
   );
 }
