@@ -281,9 +281,15 @@ function TesimonialSection() {
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-4 text-center sm:text-left">
           <p className="text-muted-foreground">
-            Hey, I’m Hruthik, a frontend engineer and designer passionate about
-            helping developers grow faster through structured, practical, and
-            community-driven learning.
+            Hey, I’m Hruthik, I’m currently a founding engineer at{' '}
+            <a
+              target="_blank"
+              className="underline"
+              href="https://digiusher.com/"
+            >
+              DigiUsher
+            </a>
+            .
           </p>
           <p className="text-muted-foreground">
             I’m not the most skilled developer out there but I’ve learned that
