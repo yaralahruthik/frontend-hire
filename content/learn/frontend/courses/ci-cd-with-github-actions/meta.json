@@ -1,0 +1,6 @@
+{
+  "title": "Setup CI/CD with GitHub Actions",
+  "description": "This is quite simple to learn and by the end of the course you'll be much confident dealing with GitHub actions.",
+  "pages": ["overview", "ci-continuous-integration", "summary"],
+  "isNew": true
+}
