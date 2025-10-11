@@ -9,7 +9,38 @@ In fact, I did not touch this stuff (directly at least) for the first two years 
 
 ## Introduction
 
+![](./assets/ci-cd.webp)
+
+1. Developers (you and your team) push code to GitHub.
+
+2. The CI Pipeline (Continuous Integration) starts automatically:
+
+   - It checks code style.
+
+   - It runs tests to ensure everything works correctly.
+
+   - Or anything that has to run before code can be merged.
+
+3. If the checks pass, the code is merged into the main branch.
+
+   - If not, the team gets feedback and makes the necessary changes.
+
+4. Once merged, the CD Pipeline (Continuous Deployment) begins:
+
+   - It builds the code.
+
+   - It deploys the application.
+
+   - If required to staging and dev environments also.
+
+5. Finally, the app goes live!
+
 ## Course Content
+
+A pretty straightforward content:
+
+- A starter repo with `prettier`, `eslint`, and `tests` already set up. We just move those checks to the GitHub Actions Workflows.
+- We also cover minor `eslint` configuration.
 
 ### Starter Repo
 
