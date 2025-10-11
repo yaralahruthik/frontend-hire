@@ -313,3 +313,70 @@ Push this change, and our action should pass with only warnings.
 </Callout>
 
 ### 3. Automated Testing
+
+Great, let us now set up another job for tests. Though we can add another step for tests in a single job. It would mean a sequential run. Do we really care that tests should only run after the `style` check? No, it can run in parallel, and whichever fails first is a better feedback.
+
+```yml title=".github/workflows/ci.yml"
+name: ci
+
+on:
+  pull_request:
+    branches: [0-init]
+
+jobs:
+  style:
+    name: Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check Formatting
+        run: pnpm format:check
+
+      - name: Check Linting
+        run: pnpm lint
+
+  # [!code ++:21]
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Tests
+        run: pnpm test
+```
+
+We just repeat the steps and just run our `test` script.
+
+<Callout type="warn" title="Always test for failing builds">
+  I repeat again! It is quite easy to assume the action works as expected but
+  testing for failing builds is a better validation. So, intentionally break a
+  test and check for correct failure.
+</Callout>
