@@ -1,6 +1,7 @@
 {
   "pages": [
     "---Courses---",
+    "ci-cd-with-github-actions",
     "marketing-website-with-zero-cost-cms",
     "todo-app-react",
     "stackpack",
