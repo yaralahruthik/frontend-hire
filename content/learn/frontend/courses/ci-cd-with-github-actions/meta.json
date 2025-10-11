@@ -1,6 +1,6 @@
 {
   "title": "Setup CI/CD with GitHub Actions",
-  "description": "This is quite simple to learn and by the end of this short course you'll be much confident dealing with GitHub actions.",
+  "description": "This is simple to learn, and by the end of this short course you’ll be much more confident dealing with GitHub Actions.",
   "pages": [
     "overview",
     "ci-continuous-integration",
