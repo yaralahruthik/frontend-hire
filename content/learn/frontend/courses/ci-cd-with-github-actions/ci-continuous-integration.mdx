@@ -1,4 +1,303 @@
 ---
-title: 'CI a.k.a Continuous Integration'
-description: placeholder
+title: 'Continuous Integration (CI)'
+description: Continuous Integration (CI) is a software development practice where developers regularly merge their code changes into a central repository, after which automated builds and tests are run.
 ---
+
+## Problem
+
+How can you enforce style checks (formatting, linting) and ensure all tests pass whenever your team pushes code?
+
+If you’ve completed our earlier [Todo App Course](/learn/frontend/courses/todo-app-react/overview), you’ve seen how we use [`Husky`](https://typicode.github.io/husky/) and [`lint-staged`](https://github.com/lint-staged/lint-staged) to enforce [`Prettier`](https://prettier.io/) and [`ESLint`](https://eslint.org/) on staged files through [Git hooks](https://git-scm.com/book/ms/v2/Customizing-Git-Git-Hooks).
+
+However, Git hooks can be bypassed—either by skipping installation or using the `--no-verify` flag. To make checks mandatory, we can delegate them to our Git repository platform (like GitHub).
+
+This is where **[GitHub Actions Workflows](https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows)** come in, allowing us to automate these checks and truly **continuously integrate** changes into the main repository.
+
+---
+
+## Project Structure
+
+A simplified overview of the project:
+
+<Files>
+  <Folder name="fh-ci-cd-todo-app" defaultOpen>
+    <Folder name=".husky" />
+    <Folder name="src" defaultOpen>
+      <Folder name="components">
+        <Folder name="ui">
+          <File name="button.tsx" />
+          <File name="form.tsx" />
+          <File name="input.tsx" />
+          <File name="label.tsx" />
+        </Folder>
+      </Folder>
+      <Folder name="features">
+        <Folder name="tasks">
+          <File name="add-task.tsx" />
+          <File name="task-list.tsx" />
+          <File name="task-list-header.tsx" />
+          <File name="task-list-item.tsx" />
+          <File name="types.ts" />
+        </Folder>
+      </Folder>
+      <File name="App.tsx" />
+      <File name="App.test.tsx" />
+      <File name="setup-tests.ts" />
+    </Folder>
+    <File name=".prettierignore" />
+    <File name=".prettierrc" />
+    <File name="eslint.config.js" />
+    <File name="index.html" />
+    <File name="package.json" />
+    <File name="vite.config.ts" />
+  </Folder>
+</Files>
+
+We won’t modify much of the app’s source code—just the configuration needed for GitHub Actions workflows.
+
+---
+
+## The CI Pipeline
+
+Create a new branch named `ci-integration` and publish it.
+
+We’ll set up **two jobs** that run whenever a pull request targets the default branch (`0-init`):
+
+1. **Style checks** — Prettier + ESLint
+2. **Automated tests** — Vitest
+
+Start by creating a `.github` directory with a `workflows` subfolder, then add a file named `.github/workflows/ci.yml`.
+
+```yml title=".github/workflows/ci.yml"
+name: ci
+
+on:
+  pull_request:
+    branches: [0-init]
+```
+
+- `name` (optional) defines the workflow’s display name.
+- `on` specifies the GitHub event that triggers the workflow. Here, it runs on every pull request targeting `0-init`.
+
+---
+
+### 1. Formatting Checks with Prettier
+
+We’ll first set up a job to verify code formatting using **Prettier**.
+
+Add two new scripts to your `package.json`:
+
+```json title="package.json"
+{
+  "scripts": {
+    "format:check": "prettier . --check", // [!code ++]
+    "format:write": "prettier . --write" // [!code ++]
+  }
+}
+```
+
+These scripts either check or fix code formatting.
+Now, let’s tell GitHub how to run them.
+
+We’ll use a [GitHub-hosted runner](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners) — a virtual machine that executes your workflow steps.
+
+```yml title=".github/workflows/ci.yml"
+jobs:
+  style:
+    name: Style
+    runs-on: ubuntu-latest
+```
+
+This uses the latest Ubuntu runner. Next, we’ll define the steps that run within this job.
+
+---
+
+### Steps Overview
+
+If you were running this locally, you’d:
+
+1. Check out the repository code
+2. Set up Node.js and pnpm
+3. Install dependencies
+4. Run Prettier
+
+Let’s translate that into GitHub Actions steps.
+
+#### 1. Checkout Code
+
+We’ll use the official [checkout action](https://github.com/actions/checkout):
+
+```yml
+- name: Check out code
+  uses: actions/checkout@v5
+```
+
+#### 2. Set Up Environment
+
+We’ll use public actions for both pnpm and Node.js:
+
+- [pnpm/action-setup](https://github.com/pnpm/action-setup)
+- [actions/setup-node](https://github.com/actions/setup-node)
+
+```yml
+- name: Set up pnpm
+  uses: pnpm/action-setup@v4
+
+- name: Set up Node
+  uses: actions/setup-node@v5
+  with:
+    node-version: 22
+```
+
+It’s best practice to specify a Node version explicitly for consistency.
+
+#### 3. Install Dependencies
+
+```yml
+- name: Install dependencies
+  run: pnpm install
+```
+
+#### 4. Run Formatting Check
+
+```yml
+- name: Check Formatting
+  run: pnpm format:check
+```
+
+---
+
+### Complete Style Job
+
+Here’s the full configuration:
+
+```yml title=".github/workflows/ci.yml"
+name: ci
+
+on:
+  pull_request:
+    branches: [0-init]
+
+jobs:
+  style:
+    name: Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check Formatting
+        run: pnpm format:check
+```
+
+Push these changes to your `ci-integration` branch and open a pull request.
+You’ll see a workflow named **`ci / Style (pull_request)`** start running—and if your code is formatted correctly, it’ll pass ✅.
+
+<Callout type="warn" title="Always test for failing builds">
+  It is quite easy to assume the action works as expected but testing for
+  failing builds is a better validation. So, just try to commit an
+  inconsistently formatted code and check if the build failed or not!
+</Callout>
+
+Now that our formatting check is automated, we can move on to **linting with ESLint** and **automated testing** next.
+
+### 2. Linting with ESLint
+
+This is quite simple. Just add another step to the existing `style` job.
+
+```yml title=".github/workflows/ci.yml"
+name: ci
+
+on:
+  pull_request:
+    branches: [0-init]
+
+jobs:
+  style:
+    name: Style
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Check Formatting
+        run: pnpm format:check
+
+      # [!code ++:2]
+      - name: Check Linting
+        run: pnpm lint
+```
+
+Push your code, and you’ll notice that the action takes a little longer—but then fails! That’s actually a **good thing**. The logs will show two errors related to the `react-refresh/only-export-components` rule.
+
+Here’s what’s happening: `shadcn` exports all component-related logic from a single file, but in our case, `vite` struggles with Hot Module Replacement (HMR) and recommends moving those exports into separate files. This rule makes sense in general, but for certain files that don’t change frequently, keeping everything in one file can actually improve readability and maintainability.
+
+So, we will just setup our `eslint.config.js` to ignore this rule for the `shadcn` component `ui` directory.
+
+```js title="eslint.config.js"
+import js from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+  },
+  // [!code ++:6]
+  {
+    files: ['./src/components/ui/**/*'],
+    rules: {
+      'react-refresh/only-export-components': 'warn',
+    },
+  },
+  eslintConfigPrettier,
+]);
+```
+
+Push this change, and our action should pass with only warnings.
+
+<Callout type="warn" title="I think warnings are okay!">
+  This is my personal opinion, and I would not check for something like `eslint
+  . --max-warnings=0`. You should ideally talk to your team and decide.
+</Callout>
+
+### 3. Automated Testing
