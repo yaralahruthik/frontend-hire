@@ -22,16 +22,17 @@ export default async function Page(props: {
   if (!page) notFound();
 
   const MDXContent = page.data.body;
-
   const time =
-    process.env.NODE_ENV !== 'production'
-      ? null
-      : await getGithubLastEdit({
+    process.env.NODE_ENV === 'production'
+      ? await getGithubLastEdit({
           owner: 'yaralahruthik',
           repo: 'frontend-hire',
           path: `content/learn/${page.file.path}`,
-        });
+        })
+      : null;
 
+  const isQuestionsPage = page.slugs.includes('questions');
+  const isOverviewPage = page.slugs.at(-1) === 'overview';
   const advertisementKey = page.slugs.join('-') as ContentOverviewKeyType;
 
   return (
@@ -43,21 +44,23 @@ export default async function Page(props: {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        {page.slugs.includes('questions') && <GFEAdvertisement />}
+        {isQuestionsPage && <GFEAdvertisement />}
+
         <MDXContent
           components={getMDXComponents({
-            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />
-        {page.slugs.at(-1) === 'overview' && (
+
+        {isOverviewPage && (
           <PageAdvertisement
             advertisement={
               ADVERTISEMENTS.CONTENT_OVERVIEW_PAGES[advertisementKey]
             }
           />
         )}
-        {page.slugs.includes('questions') && <GFEAdvertisement />}
+
+        {isQuestionsPage && <GFEAdvertisement />}
       </DocsBody>
     </DocsPage>
   );
@@ -77,15 +80,11 @@ export async function generateMetadata({
   if (!page) notFound();
 
   const image = ['/docs-og', ...slug, 'image.png'].join('/');
+
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
-    openGraph: {
-      images: image,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      images: image,
-    },
+    openGraph: { images: image },
+    twitter: { card: 'summary_large_image', images: image },
   });
 }
