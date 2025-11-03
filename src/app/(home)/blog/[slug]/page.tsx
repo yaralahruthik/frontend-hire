@@ -24,10 +24,8 @@ export default async function Page(props: {
   return (
     <>
       <div className="container mt-4 rounded-xl border p-8">
-        <h1 className="mb-2 text-3xl font-bold text-white">
-          {page.data.title}
-        </h1>
-        <p className="mb-4 text-white/80">{page.data.description}</p>
+        <h1 className="mb-2 text-3xl font-bold">{page.data.title}</h1>
+        <p className="text-fd-muted-foreground mb-4">{page.data.description}</p>
         <Link
           href="/blog"
           className={buttonVariants({ size: 'sm', color: 'secondary' })}
