@@ -1,7 +1,7 @@
 import { blog } from '@/lib/source';
 import Link from 'next/link';
 
-export default function Page(): React.ReactElement {
+export default function Page() {
   const openHousePosts = [...blog.getPages()]
     .filter((post) => post.data.category === 'open-house')
     .sort(
@@ -22,7 +22,6 @@ export default function Page(): React.ReactElement {
         </p>
       </div>
 
-      {/* Upcoming Open House Section */}
       <div className="bg-fd-card mx-4 mb-8 rounded-lg border p-6 md:mx-8">
         <h2 className="mb-3 text-2xl font-semibold">Upcoming Open House</h2>
         <p className="text-fd-muted-foreground mb-4 text-sm">
@@ -39,7 +38,6 @@ export default function Page(): React.ReactElement {
         </a>
       </div>
 
-      {/* Past Open Houses Section */}
       <div className="px-8 pb-8">
         <h2 className="mb-4 text-2xl font-semibold">Past Open Houses</h2>
       </div>

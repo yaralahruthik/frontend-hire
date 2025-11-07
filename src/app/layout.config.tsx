@@ -70,8 +70,8 @@ export const baseOptions: BaseLayoutProps = {
     },
     {
       type: 'main',
-      text: 'Support Us',
-      url: 'https://www.buymeacoffee.com/iamyhr',
+      text: 'Open Houses',
+      url: '/open-houses',
     },
     {
       type: 'main',
