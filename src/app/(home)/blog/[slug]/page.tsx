@@ -5,7 +5,7 @@ import { getMDXComponents } from '@/mdx-components';
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { notFound } from 'next/navigation';
-import { BackButton, Control } from './page.client';
+import { Control } from './page.client';
 
 export default async function Page(props: {
   params: Promise<{ slug: string }>;
@@ -24,7 +24,6 @@ export default async function Page(props: {
       <div className="container mt-4 rounded-xl border p-8">
         <h1 className="mb-2 text-3xl font-bold">{page.data.title}</h1>
         <p className="text-fd-muted-foreground mb-4">{page.data.description}</p>
-        <BackButton />
       </div>
       <article className="container flex flex-col px-0 py-8 lg:flex-row lg:px-4">
         <div className="prose min-w-0 flex-1 p-4">
