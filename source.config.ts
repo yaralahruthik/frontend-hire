@@ -25,6 +25,7 @@ export const blog = defineDocs({
     schema: frontmatterSchema.extend({
       author: authorEnum,
       date: z.string().date().or(z.date()).optional(),
+      category: z.enum(['open-house']).optional(),
     }),
   },
 });

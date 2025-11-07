@@ -4,8 +4,23 @@ import { buttonVariants } from 'fumadocs-ui/components/ui/button';
 import { cn } from 'fumadocs-ui/utils/cn';
 import { useCopyButton } from 'fumadocs-ui/utils/use-copy-button';
 import { Check, Share } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
-export function Control({ url }: { url: string }): React.ReactElement {
+export function BackButton() {
+  const router = useRouter();
+
+  return (
+    <button
+      type="button"
+      className={buttonVariants({ size: 'sm', color: 'secondary' })}
+      onClick={() => router.back()}
+    >
+      Back
+    </button>
+  );
+}
+
+export function Control({ url }: { url: string }) {
   const [isChecked, onCopy] = useCopyButton(() => {
     void navigator.clipboard.writeText(`${window.location.origin}${url}`);
   });
