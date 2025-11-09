@@ -44,26 +44,15 @@ export default function LearnPage() {
         <div className="grid gap-6 sm:grid-cols-2">
           {learningRoutes.map((route) => {
             const Icon = route.icon;
-            const CardComponent = route.available ? Link : 'div';
 
             return (
-              <CardComponent
+              <Link
                 key={route.url}
-                href={route.available ? route.url : undefined}
-                className={`group relative rounded-lg border bg-fd-card p-6 transition-colors ${
-                  route.available
-                    ? 'hover:border-fd-primary cursor-pointer'
-                    : 'opacity-60 cursor-not-allowed'
-                }`}
+                href={route.url}
+                className="group relative rounded-lg border bg-fd-card p-6 transition-colors hover:border-fd-primary cursor-pointer"
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <div
-                    className={`rounded-md p-2 ${
-                      route.available
-                        ? 'bg-fd-primary/10 text-fd-primary'
-                        : 'bg-fd-muted text-fd-muted-foreground'
-                    }`}
-                  >
+                  <div className="rounded-md bg-fd-primary/10 p-2 text-fd-primary">
                     <Icon className="h-6 w-6" />
                   </div>
                   <h2 className="text-xl font-semibold">{route.title}</h2>
@@ -78,7 +67,7 @@ export default function LearnPage() {
                     </span>
                   </div>
                 )}
-              </CardComponent>
+              </Link>
             );
           })}
         </div>
