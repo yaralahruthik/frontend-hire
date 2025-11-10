@@ -5,9 +5,7 @@ description: Python's module system compared to JavaScript's ES modules and Comm
 
 ## Basic Imports
 
-<Tabs items={['Python', 'JavaScript (ES Modules)', 'JavaScript (CommonJS)']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Import entire module
 import math
 print(math.sqrt(16))
@@ -23,9 +21,8 @@ now = dt.datetime.now()
 # Import all (not recommended)
 from math import *
 ```
-</Tab>
-<Tab value="JavaScript (ES Modules)">
-```javascript
+
+```javascript tab="JavaScript (ES Modules)"
 // Import entire module
 import * as math from './math.js';
 console.log(math.sqrt(16));
@@ -41,9 +38,8 @@ const now = dt.now();
 // Import all named exports
 import * as everything from './module.js';
 ```
-</Tab>
-<Tab value="JavaScript (CommonJS)">
-```javascript
+
+```javascript tab="JavaScript (CommonJS)"
 // Import entire module
 const math = require('./math');
 console.log(math.sqrt(16));
@@ -56,8 +52,6 @@ console.log(sqrt(16));
 const dt = require('./datetime');
 const now = dt.now();
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `import` and `from...import`
@@ -68,9 +62,7 @@ const now = dt.now();
 
 ## Module Structure
 
-<Tabs items={['Python', 'JavaScript (ES Modules)']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # math_utils.py
 PI = 3.14159
 
@@ -89,9 +81,8 @@ import math_utils
 
 result = math_utils.add(5, 3)
 ```
-</Tab>
-<Tab value="JavaScript (ES Modules)">
-```javascript
+
+```javascript tab="JavaScript (ES Modules)"
 // math-utils.js
 export const PI = 3.14159;
 
@@ -111,8 +102,6 @@ import * as mathUtils from './math-utils.js';
 
 const result = mathUtils.add(5, 3);
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: everything at module level is accessible
@@ -122,9 +111,7 @@ const result = mathUtils.add(5, 3);
 
 ## Default Exports
 
-<Tabs items={['Python', 'JavaScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # No default exports in Python
 # Use __all__ to control * imports
 
@@ -140,9 +127,8 @@ def multiply(a, b):
 def _private_function():  # Leading _ suggests private
     pass
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 // utils.js
 export default function add(a, b) {
   return a + b;
@@ -158,8 +144,6 @@ import add, { multiply } from './utils.js';
 // or rename default import
 import addFunction from './utils.js';
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - JavaScript has default exports
@@ -169,9 +153,7 @@ import addFunction from './utils.js';
 
 ## Relative vs Absolute Imports
 
-<Tabs items={['Python', 'JavaScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Project structure:
 # my_project/
 #   main.py
@@ -189,9 +171,8 @@ from .math_utils import add      # Same package
 from ..main import something     # Parent package
 from . import math_utils         # Import module
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 // Project structure:
 // my-project/
 //   main.js
@@ -209,8 +190,6 @@ import something from '../main.js';        // Parent dir
 // Absolute (via module resolution)
 import { add } from 'utils/math-utils';    // With bundler
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: absolute imports from project root
@@ -221,9 +200,7 @@ import { add } from 'utils/math-utils';    // With bundler
 
 ## Package Structure
 
-<Tabs items={['Python', 'JavaScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # my_package/
 #   __init__.py
 #   module_a.py
@@ -241,9 +218,8 @@ from my_package import function_a
 import my_package
 my_package.function_a()
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 // my-package/
 //   index.js
 //   module-a.js
@@ -258,8 +234,6 @@ import { functionA } from './my-package/index.js';
 // or with bundler
 import { functionA } from './my-package';
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `__init__.py` makes directory a package
@@ -269,9 +243,7 @@ import { functionA } from './my-package';
 
 ## Package Management
 
-<Tabs items={['Python', 'JavaScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # requirements.txt
 requests==2.31.0
 numpy>=1.24.0
@@ -293,9 +265,8 @@ dependencies = [
 # pip install requests
 # or use uv, poetry, pipenv
 ```
-</Tab>
-<Tab value="JavaScript">
-```json
+
+```json tab="JavaScript"
 // package.json
 {
   "name": "my-project",
@@ -314,8 +285,6 @@ dependencies = [
 // Install specific package
 // npm install axios
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `pip`, `uv`, `poetry`, `pipenv`
@@ -326,9 +295,7 @@ dependencies = [
 
 ## Standard Library
 
-<Tabs items={['Python', 'JavaScript (Node.js)']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # File operations
 import os
 os.listdir('.')
@@ -353,9 +320,8 @@ now = datetime.now()
 import random
 num = random.randint(1, 10)
 ```
-</Tab>
-<Tab value="JavaScript (Node.js)">
-```javascript
+
+```javascript tab="JavaScript (Node.js)"
 // File operations
 import fs from 'fs';
 fs.readdirSync('.');
@@ -376,8 +342,6 @@ const now = new Date();
 // Random (built-in)
 const num = Math.floor(Math.random() * 10) + 1;
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has extensive standard library
@@ -387,9 +351,7 @@ const num = Math.floor(Math.random() * 10) + 1;
 
 ## Circular Imports
 
-<Tabs items={['Python', 'JavaScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # module_a.py
 from module_b import function_b
 
@@ -407,9 +369,8 @@ def function_a():
     from module_b import function_b
     return function_b()
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 // module-a.js
 import { functionB } from './module-b.js';
 
@@ -427,8 +388,6 @@ export function functionB() {
 // ES modules handle this better than CommonJS
 // but it's still best to avoid
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Both languages struggle with circular imports
@@ -438,9 +397,7 @@ export function functionB() {
 
 ## Virtual Environments
 
-<Tabs items={['Python', 'JavaScript']}>
-<Tab value="Python">
-```bash
+```bash tab="Python"
 # Create virtual environment
 python -m venv venv
 
@@ -460,9 +417,8 @@ deactivate
 uv venv
 source .venv/bin/activate
 ```
-</Tab>
-<Tab value="JavaScript">
-```bash
+
+```bash tab="JavaScript"
 # npm/pnpm/yarn handle this automatically
 # Dependencies are installed in node_modules/
 
@@ -478,8 +434,6 @@ npx some-tool
 # Or use package managers like pnpm
 pnpm install
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: explicit virtual environments

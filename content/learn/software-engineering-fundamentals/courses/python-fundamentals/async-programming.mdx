@@ -5,9 +5,7 @@ description: Asynchronous programming patterns in Python vs JavaScript.
 
 ## Basic Async Functions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 # Define async function
@@ -27,9 +25,8 @@ asyncio.run(main())
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Define async function
 async function fetchData() {
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -48,8 +45,6 @@ main();
 // Or use .then()
 main().then(() => console.log("Done"));
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: must use `asyncio.run()` or event loop
@@ -60,9 +55,7 @@ main().then(() => console.log("Done"));
 
 ## Promises vs Coroutines
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 # Coroutine function
@@ -83,9 +76,8 @@ results = await asyncio.gather(
     async_operation()
 )
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Async function returns Promise
 async function asyncOperation() {
   await new Promise(r => setTimeout(r, 1000));
@@ -108,8 +100,6 @@ const results = await Promise.all([
   asyncOperation()
 ]);
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: coroutines must be awaited or scheduled
@@ -120,9 +110,7 @@ const results = await Promise.all([
 
 ## Concurrent Execution
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 async def task(name, delay):
@@ -151,9 +139,8 @@ async def with_tasks():
     r2 = await t2
     return [r1, r2]
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 async function task(name, delay) {
   await new Promise(r => setTimeout(r, delay));
   return `${name} done`;
@@ -184,8 +171,6 @@ async function withPromises() {
   return [r1, r2];
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `asyncio.gather()` or `create_task()`
@@ -196,9 +181,7 @@ async function withPromises() {
 
 ## Error Handling in Async
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 async def risky_operation():
     await asyncio.sleep(1)
     raise ValueError("Something went wrong")
@@ -223,9 +206,8 @@ async def gather_with_errors():
         if isinstance(r, Exception):
             print(f"Error: {r}")
 ```
-</Tab>
-<tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 async function riskyOperation() {
   await new Promise(r => setTimeout(r, 1000));
   throw new Error("Something went wrong");
@@ -266,8 +248,6 @@ async function allSettled() {
   });
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `return_exceptions=True` in `gather()`
@@ -278,9 +258,7 @@ async function allSettled() {
 
 ## Timeouts and Cancellation
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 async def slow_operation():
@@ -310,9 +288,8 @@ async def with_cancellation():
     except asyncio.CancelledError:
         print("Task was cancelled")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 async function slowOperation() {
   await new Promise(r => setTimeout(r, 10000));
   return "Done";
@@ -353,8 +330,6 @@ async function withCancellation() {
   }
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `asyncio.wait_for()` for timeouts
@@ -365,9 +340,7 @@ async function withCancellation() {
 
 ## Async Iterators
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 # Async generator
@@ -388,9 +361,8 @@ async def comprehension():
 
 asyncio.run(consume())
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Async generator
 async function* asyncRange(count) {
   for (let i = 0; i < count; i++) {
@@ -417,8 +389,6 @@ async function toArray() {
 
 consume();
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `async def` with `yield` for generators
@@ -430,9 +400,7 @@ consume();
 
 ## Async Context Managers
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 class AsyncResource:
@@ -460,9 +428,8 @@ async def fetch():
         async with session.get('https://api.example.com') as resp:
             return await resp.json()
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Using statement (TypeScript 5.2+)
 class AsyncResource {
   async [Symbol.asyncDispose]() {
@@ -493,8 +460,6 @@ async function fetch() {
   }
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `async with` statement
@@ -505,9 +470,7 @@ async function fetch() {
 
 ## Running Multiple Async Functions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 async def task1():
@@ -539,9 +502,8 @@ async def as_completed():
         result = await coro
         print(f"Got: {result}")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 async function task1() {
   await new Promise(r => setTimeout(r, 1000));
   return "Task 1";
@@ -590,8 +552,6 @@ async function trueAsCompleted() {
   }
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `gather()`, `wait()`, `as_completed()`

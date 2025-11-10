@@ -7,29 +7,23 @@ description: Understanding Python's type system compared to JavaScript/TypeScrip
 
 Python uses simple assignment without keywords like `let`, `const`, or `var`.
 
-<Tabs items={['Python', 'JavaScript', 'TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 name = "John"
 age = 30
 is_active = True
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 const name = "John";
 const age = 30;
 const isActive = true;
 ```
-</Tab>
-<Tab value="TypeScript">
-```typescript
+
+```typescript tab="TypeScript"
 const name: string = "John";
 const age: number = 30;
 const isActive: boolean = true;
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python uses `snake_case` for variables (not `camelCase`)
@@ -41,26 +35,21 @@ const isActive: boolean = true;
 
 ### Strings
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 single = 'Hello'
 double = "World"
 multiline = """This is
 a multiline string"""
 f_string = f"My name is {name}"
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const single = 'Hello';
 const double = "World";
 const multiline = `This is
 a multiline string`;
 const template = `My name is ${name}`;
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python uses `f-strings` (prefix with `f`) for string interpolation
@@ -69,9 +58,7 @@ const template = `My name is ${name}`;
 
 ### Numbers
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 integer = 42
 float_num = 3.14
 complex_num = 3 + 4j
@@ -80,9 +67,8 @@ complex_num = 3 + 4j
 result = float(integer)  # 42.0
 whole = int(float_num)   # 3
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const integer = 42;
 const floatNum = 3.14;
 // No native complex numbers
@@ -91,8 +77,6 @@ const floatNum = 3.14;
 const result = Number(integer);
 const whole = parseInt(floatNum);
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has native complex numbers
@@ -101,9 +85,7 @@ const whole = parseInt(floatNum);
 
 ### Booleans
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 is_true = True
 is_false = False
 
@@ -114,9 +96,8 @@ bool("")       # False
 bool([])       # False
 bool({})       # False
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const isTrue = true;
 const isFalse = false;
 
@@ -128,8 +109,6 @@ Boolean("");         // false
 Boolean([]);         // true (different!)
 Boolean({});         // true (different!)
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `True`, `False`, `None` (capitalized)
@@ -138,9 +117,7 @@ Boolean({});         // true (different!)
 
 ## Type Checking
 
-<Tabs items={['Python', 'TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 age = 30
 print(type(age))  # <class 'int'>
 
@@ -152,9 +129,8 @@ isinstance(age, str)    # False
 def greet(name: str) -> str:
     return f"Hello, {name}"
 ```
-</Tab>
-<Tab value="TypeScript">
-```typescript
+
+```typescript tab="TypeScript"
 const age = 30;
 console.log(typeof age);  // "number"
 
@@ -163,8 +139,6 @@ function greet(name: string): string {
   return `Hello, ${name}`;
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `type()` function, runtime checking
@@ -173,9 +147,7 @@ function greet(name: string): string {
 
 ## None vs null/undefined
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 value = None
 
 if value is None:
@@ -185,9 +157,8 @@ if value is None:
 value is None      # Use 'is'
 value is not None  # Use 'is not'
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 let value = null;
 
 if (value === null) {
@@ -199,8 +170,6 @@ value === null
 value !== null
 value === undefined
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has only `None` (not both `null` and `undefined`)

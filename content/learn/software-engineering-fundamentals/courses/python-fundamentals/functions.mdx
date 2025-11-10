@@ -5,34 +5,28 @@ description: Function syntax, parameters, and scope in Python vs JavaScript.
 
 ## Basic Function Syntax
 
-<Tabs items={['Python', 'JavaScript', 'TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 def greet(name):
     return f"Hello, {name}"
 
 result = greet("Alice")
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 function greet(name) {
   return `Hello, ${name}`;
 }
 
 const result = greet("Alice");
 ```
-</Tab>
-<Tab value="TypeScript">
-```typescript
+
+```typescript tab="TypeScript"
 function greet(name: string): string {
   return `Hello, ${name}`;
 }
 
 const result = greet("Alice");
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python uses `def` keyword
@@ -41,9 +35,7 @@ const result = greet("Alice");
 
 ## Arrow Functions vs Lambda
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Lambda (single expression only)
 square = lambda x: x ** 2
 
@@ -55,9 +47,8 @@ def calculate(x):
 numbers = [1, 2, 3, 4]
 squared = list(map(lambda x: x ** 2, numbers))
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Arrow function
 const square = (x) => x ** 2;
 
@@ -70,8 +61,6 @@ const calculate = (x) => {
 const numbers = [1, 2, 3, 4];
 const squared = numbers.map(x => x ** 2);
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `lambda` keyword (single expression only)
@@ -80,9 +69,7 @@ const squared = numbers.map(x => x ** 2);
 
 ## Default Parameters
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 def greet(name, greeting="Hello"):
     return f"{greeting}, {name}"
 
@@ -90,9 +77,8 @@ greet("Alice")              # "Hello, Alice"
 greet("Bob", "Hi")          # "Hi, Bob"
 greet("Charlie", greeting="Hey")  # Named argument
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 function greet(name, greeting = "Hello") {
   return `${greeting}, ${name}`;
 }
@@ -101,8 +87,6 @@ greet("Alice");           // "Hello, Alice"
 greet("Bob", "Hi");       // "Hi, Bob"
 // No named arguments in JS
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Both support default parameters
@@ -111,9 +95,7 @@ greet("Bob", "Hi");       // "Hi, Bob"
 
 ## Rest Parameters and *args/**kwargs
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # *args - positional arguments
 def sum_all(*numbers):
     return sum(numbers)
@@ -133,9 +115,8 @@ def complex_func(required, *args, **kwargs):
     print(args)
     print(kwargs)
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Rest parameters
 function sumAll(...numbers) {
   return numbers.reduce((a, b) => a + b, 0);
@@ -150,8 +131,6 @@ function printInfo({ name, age }) {
 
 printInfo({ name: "Alice", age: 30 });
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `*args` for positional, `**kwargs` for keyword arguments
@@ -160,9 +139,7 @@ printInfo({ name: "Alice", age: 30 });
 
 ## Unpacking Arguments
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 def add(a, b, c):
     return a + b + c
 
@@ -172,9 +149,8 @@ result = add(*numbers)  # Unpacking list
 data = {"a": 1, "b": 2, "c": 3}
 result = add(**data)    # Unpacking dict
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 function add(a, b, c) {
   return a + b + c;
 }
@@ -184,8 +160,6 @@ const result = add(...numbers);  // Spread operator
 
 // No direct equivalent for **kwargs spread
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `*` for list/tuple, `**` for dict
@@ -194,9 +168,7 @@ const result = add(...numbers);  // Spread operator
 
 ## Function Scope
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 x = 10  # Global
 
 def outer():
@@ -215,9 +187,8 @@ def outer():
 outer()
 print(x)  # 100
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 let x = 10;  // Global
 
 function outer() {
@@ -236,8 +207,6 @@ function outer() {
 outer();
 console.log(x);  // 100
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python requires `global` keyword to modify global variables
@@ -246,9 +215,7 @@ console.log(x);  // 100
 
 ## Higher-Order Functions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Function returning function
 def multiplier(factor):
     def multiply(x):
@@ -264,9 +231,8 @@ def apply(func, value):
 
 apply(lambda x: x ** 2, 5)  # 25
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Function returning function
 function multiplier(factor) {
   return function(x) {
@@ -284,8 +250,6 @@ function apply(func, value) {
 
 apply(x => x ** 2, 5);  // 25
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Both languages treat functions as first-class citizens
@@ -294,9 +258,7 @@ apply(x => x ** 2, 5);  // 25
 
 ## Decorators vs Higher-Order Functions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 def log_call(func):
     def wrapper(*args, **kwargs):
         print(f"Calling {func.__name__}")
@@ -310,9 +272,8 @@ def greet(name):
 greet("Alice")  # Prints: Calling greet
                 # Returns: Hello, Alice
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 function logCall(func) {
   return function(...args) {
     console.log(`Calling ${func.name}`);
@@ -330,8 +291,6 @@ greet = logCall(greet);
 greet("Alice");  // Logs: Calling greet
                  // Returns: Hello, Alice
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has decorator syntax (`@decorator`)

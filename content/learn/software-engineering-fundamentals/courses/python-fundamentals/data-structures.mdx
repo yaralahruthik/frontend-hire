@@ -5,9 +5,7 @@ description: Lists, dictionaries, tuples, and sets compared to JavaScript arrays
 
 ## Lists vs Arrays
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Creating lists
 fruits = ["apple", "banana", "cherry"]
 numbers = [1, 2, 3, 4, 5]
@@ -24,9 +22,8 @@ first_two = fruits[:2]   # ["apple", "banana"]
 last_two = fruits[-2:]   # ["banana", "cherry"]
 reversed_list = fruits[::-1]  # Reverse
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Creating arrays
 const fruits = ["apple", "banana", "cherry"];
 const numbers = [1, 2, 3, 4, 5];
@@ -43,8 +40,6 @@ const firstTwo = fruits.slice(0, 2);  // ["apple", "banana"]
 const lastTwo = fruits.slice(-2);     // ["banana", "cherry"]
 const reversed = [...fruits].reverse(); // Reverse (copy first)
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python supports negative indexing natively (`-1` is last)
@@ -54,9 +49,7 @@ const reversed = [...fruits].reverse(); // Reverse (copy first)
 
 ## List Methods
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 fruits = ["apple", "banana"]
 
 # Adding elements
@@ -79,9 +72,8 @@ fruits.sort()          # Sort in place
 sorted_fruits = sorted(fruits)  # Return new sorted list
 fruits.reverse()       # Reverse in place
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const fruits = ["apple", "banana"];
 
 // Adding elements
@@ -105,8 +97,6 @@ fruits.sort();             // Sort in place
 const sortedFruits = [...fruits].sort(); // Return new
 fruits.reverse();          // Reverse in place
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `append()`, `extend()`, `remove()`
@@ -116,9 +106,7 @@ fruits.reverse();          // Reverse in place
 
 ## Dictionaries vs Objects
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Creating dictionaries
 person = {
     "name": "Alice",
@@ -144,9 +132,8 @@ person.clear()                  # Remove all
 "name" in person                # True
 "phone" not in person           # True
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Creating objects
 const person = {
   name: "Alice",
@@ -173,8 +160,6 @@ delete person.email;
 "name" in person;                // true
 !("phone" in person);            // true
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `dict["key"]` throws error if missing
@@ -184,9 +169,7 @@ delete person.email;
 
 ## Dictionary Methods
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 person = {"name": "Alice", "age": 30}
 
 # Keys, values, items
@@ -208,9 +191,8 @@ person = {**defaults, **person}  # Spread operator
 # Update method
 person.update({"email": "alice@ex.com", "age": 31})
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const person = { name: "Alice", age: 30 };
 
 // Keys, values, entries
@@ -234,8 +216,6 @@ const merged = { ...defaults, ...person }; // Spread
 // Assign method
 Object.assign(person, { email: "alice@ex.com", age: 31 });
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `dict.keys()`, `dict.values()`, `dict.items()`
@@ -245,9 +225,7 @@ Object.assign(person, { email: "alice@ex.com", age: 31 });
 
 ## Tuples (Immutable Lists)
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Tuples are immutable
 point = (10, 20)
 rgb = (255, 0, 128)
@@ -272,9 +250,8 @@ locations = {
     (1, 0): "right"
 }
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```typescript tab="JavaScript/TypeScript"
 // Arrays (no immutable tuples, use Object.freeze or as const)
 const point = [10, 20];
 const rgb = [255, 0, 128];
@@ -302,8 +279,6 @@ const locations = {
 // TypeScript: typed tuples
 const point: [number, number] = [10, 20];
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has immutable tuples
@@ -313,9 +288,7 @@ const point: [number, number] = [10, 20];
 
 ## Sets
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Creating sets (unique values)
 numbers = {1, 2, 3, 3, 4}  # {1, 2, 3, 4}
 empty_set = set()          # Not {} (that's a dict)
@@ -337,9 +310,8 @@ symmetric_diff = a ^ b     # {1, 2, 4, 5}
 # Membership
 3 in a                     # True
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Creating Sets
 const numbers = new Set([1, 2, 3, 3, 4]); // Set {1, 2, 3, 4}
 const emptySet = new Set();
@@ -359,8 +331,6 @@ const difference = new Set([...a].filter(x => !b.has(x)));
 // Membership
 a.has(3);                  // true
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `{1, 2, 3}` literal syntax
@@ -370,9 +340,7 @@ a.has(3);                  // true
 
 ## Comprehensions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # List comprehension
 squares = [x ** 2 for x in range(10)]
 
@@ -388,9 +356,8 @@ evens = [x for x in range(10) if x % 2 == 0]
 # Nested
 matrix = [[i + j for j in range(3)] for i in range(3)]
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Array methods
 const squares = Array.from({ length: 10 }, (_, i) => i ** 2);
 // or
@@ -412,8 +379,6 @@ const matrix = Array(3).fill(0).map((_, i) =>
   Array(3).fill(0).map((_, j) => i + j)
 );
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has native comprehensions for lists, sets, dicts

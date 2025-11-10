@@ -5,9 +5,7 @@ description: Exception handling in Python compared to JavaScript's try-catch.
 
 ## Basic Try-Catch/Except
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 try:
     result = 10 / 0
 except ZeroDivisionError:
@@ -27,9 +25,8 @@ try:
 except Exception as e:
     print(f"Error: {e}")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 try {
   const result = 10 / 0;  // No error, returns Infinity
 } catch (error) {
@@ -50,8 +47,6 @@ try {
   console.log(`Error: ${error.message}`);
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `except` (not `catch`)
@@ -62,9 +57,7 @@ try {
 
 ## Finally Block
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 file = None
 try:
     file = open('data.txt', 'r')
@@ -83,9 +76,8 @@ try:
 except FileNotFoundError:
     print("File not found")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 let file;
 try {
   file = await openFile('data.txt');
@@ -105,8 +97,6 @@ try {
   const content = await file.read();
 }  // Auto-cleanup
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Both have `finally` blocks
@@ -116,9 +106,7 @@ try {
 
 ## Else Block (Python Only)
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 try:
     result = int("42")
 except ValueError:
@@ -137,9 +125,8 @@ except NetworkError:
 else:
     cache_data(data)  # Only cache if fetch succeeded
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // No else clause in JavaScript
 let result;
 let success = false;
@@ -165,8 +152,6 @@ try {
   const data = getCachedData();
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has `else` clause in try-except
@@ -176,9 +161,7 @@ try {
 
 ## Raising/Throwing Exceptions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Raise exception
 raise ValueError("Invalid value")
 
@@ -195,9 +178,8 @@ try:
 except ValueError as e:
     raise TypeError("Wrong type") from e
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Throw error
 throw new Error("Invalid value");
 
@@ -221,8 +203,6 @@ try {
   throw newError;
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `raise` keyword
@@ -233,9 +213,7 @@ try {
 
 ## Custom Exceptions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Custom exception class
 class ValidationError(Exception):
     def __init__(self, message, field):
@@ -258,9 +236,8 @@ try:
 except ValidationError as e:
     print(f"Error in {e.field}: {e}")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Custom error class
 class ValidationError extends Error {
   constructor(message, field) {
@@ -295,8 +272,6 @@ try {
   }
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: inherit from `Exception`
@@ -307,9 +282,7 @@ try {
 
 ## Common Exception Types
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Built-in exceptions
 ValueError       # Invalid value
 TypeError        # Wrong type
@@ -333,9 +306,8 @@ try:
 except KeyError:
     print("Key not found")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Built-in error types
 Error            // Generic error
 TypeError        // Wrong type
@@ -362,8 +334,6 @@ try {
   console.log("Key not found");
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has more specific exception types
@@ -375,9 +345,7 @@ try {
 
 ## Error Context and Stack Traces
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import traceback
 
 try:
@@ -395,9 +363,8 @@ except Exception as e:
     stack = traceback.format_exc()
     print(stack)
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 try {
   throw new Error("Something went wrong");
 } catch (error) {
@@ -413,8 +380,6 @@ try {
   console.error(error);
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `traceback` module for stack traces
@@ -425,9 +390,7 @@ try {
 
 ## Assertions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Assert statement
 assert 2 + 2 == 4
 assert len(items) > 0, "List must not be empty"
@@ -442,9 +405,8 @@ def divide(a, b):
 # Assertions for development/testing only
 # Use proper error handling in production
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // No native assert in browser JavaScript
 // Node.js has assert module
 import assert from 'assert';
@@ -465,8 +427,6 @@ if (b === 0) {
   throw new Error("Divisor cannot be zero");
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: built-in `assert` statement
@@ -477,9 +437,7 @@ if (b === 0) {
 
 ## Async Error Handling
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 import asyncio
 
 async def fetch_data():
@@ -500,9 +458,8 @@ async def main():
 
 asyncio.run(main())
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 async function fetchData() {
   try {
     // Async operation
@@ -525,8 +482,6 @@ async function main() {
 
 main();
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Both use try-catch with async/await

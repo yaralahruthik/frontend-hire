@@ -5,9 +5,7 @@ description: Conditionals, loops, and control structures in Python vs JavaScript
 
 ## If Statements
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 age = 18
 
 if age >= 18:
@@ -17,9 +15,8 @@ elif age >= 13:
 else:
     print("Child")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const age = 18;
 
 if (age >= 18) {
@@ -30,8 +27,6 @@ if (age >= 18) {
   console.log("Child");
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `elif` (not `else if`)
@@ -40,26 +35,21 @@ if (age >= 18) {
 
 ## Ternary Expressions
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 age = 18
 status = "Adult" if age >= 18 else "Minor"
 
 # More complex
 result = "A" if score >= 90 else "B" if score >= 80 else "C"
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 const age = 18;
 const status = age >= 18 ? "Adult" : "Minor";
 
 // More complex
 const result = score >= 90 ? "A" : score >= 80 ? "B" : "C";
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `value_if_true if condition else value_if_false`
@@ -68,9 +58,7 @@ const result = score >= 90 ? "A" : score >= 80 ? "B" : "C";
 
 ## Logical Operators
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Logical operators
 is_adult = age >= 18 and has_id
 can_enter = is_member or is_guest
@@ -87,9 +75,8 @@ if x is None:
 if x is not None:
     print("Has value")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Logical operators
 const isAdult = age >= 18 && hasId;
 const canEnter = isMember || isGuest;
@@ -109,8 +96,6 @@ if (x !== null) {
   console.log("Has value");
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `and`, `or`, `not` (words)
@@ -121,9 +106,7 @@ if (x !== null) {
 
 ## For Loops
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Iterate over list
 fruits = ["apple", "banana", "cherry"]
 for fruit in fruits:
@@ -143,9 +126,8 @@ for i in range(2, 5):   # 2 to 4
 for i in range(0, 10, 2):  # 0, 2, 4, 6, 8
     print(i)
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Iterate over array
 const fruits = ["apple", "banana", "cherry"];
 for (const fruit of fruits) {
@@ -171,8 +153,6 @@ for (let i = 0; i < 10; i += 2) {
   console.log(i);
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `for item in iterable`
@@ -183,9 +163,7 @@ for (let i = 0; i < 10; i += 2) {
 
 ## While Loops
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 count = 0
 while count < 5:
     print(count)
@@ -198,9 +176,8 @@ while count < 5:
 else:
     print("Loop completed normally")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 let count = 0;
 while (count < 5) {
   console.log(count);
@@ -214,8 +191,6 @@ while (count < 5) {
 }
 console.log("Loop completed");
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python has `while-else` (executes if loop completes without `break`)
@@ -224,9 +199,7 @@ console.log("Loop completed");
 
 ## Break and Continue
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # Break
 for i in range(10):
     if i == 5:
@@ -246,9 +219,8 @@ for i in range(5):
 else:
     print("No break occurred")
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Break
 for (let i = 0; i < 10; i++) {
   if (i === 5) break;
@@ -273,8 +245,6 @@ if (!broke) {
   console.log("No break occurred");
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Both have `break` and `continue`
@@ -283,9 +253,7 @@ if (!broke) {
 
 ## Match Statement (Python 3.10+) vs Switch
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 def http_status(status):
     match status:
         case 200:
@@ -309,9 +277,8 @@ def process_point(point):
         case (x, y):
             return f"Point at {x}, {y}"
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 function httpStatus(status) {
   switch (status) {
     case 200:
@@ -335,8 +302,6 @@ function processPoint([x, y]) {
   return `Point at ${x}, ${y}`;
 }
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `match-case` (3.10+) with pattern matching
@@ -346,9 +311,7 @@ function processPoint([x, y]) {
 
 ## List Comprehensions vs Map/Filter
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 # List comprehension
 numbers = [1, 2, 3, 4, 5]
 squares = [x ** 2 for x in numbers]
@@ -360,9 +323,8 @@ result = [x * 2 if x % 2 == 0 else x for x in numbers]
 # Nested
 matrix = [[i * j for j in range(3)] for i in range(3)]
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 // Array methods
 const numbers = [1, 2, 3, 4, 5];
 const squares = numbers.map(x => x ** 2);
@@ -376,8 +338,6 @@ const matrix = Array(3).fill(0).map((_, i) =>
   Array(3).fill(0).map((_, j) => i * j)
 );
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: comprehensions (more concise)

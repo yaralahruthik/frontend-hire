@@ -5,9 +5,7 @@ description: Object-oriented programming in Python vs JavaScript/TypeScript.
 
 ## Basic Class Syntax
 
-<Tabs items={['Python', 'JavaScript', 'TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class Person:
     def __init__(self, name, age):
         self.name = name
@@ -20,9 +18,8 @@ class Person:
 person = Person("Alice", 30)
 print(person.greet())
 ```
-</Tab>
-<Tab value="JavaScript">
-```javascript
+
+```javascript tab="JavaScript"
 class Person {
   constructor(name, age) {
     this.name = name;
@@ -38,9 +35,8 @@ class Person {
 const person = new Person("Alice", 30);
 console.log(person.greet());
 ```
-</Tab>
-<Tab value="TypeScript">
-```typescript
+
+```typescript tab="TypeScript"
 class Person {
   name: string;
   age: number;
@@ -58,8 +54,6 @@ class Person {
 const person = new Person("Alice", 30);
 console.log(person.greet());
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `__init__` method (not `constructor`)
@@ -69,9 +63,7 @@ console.log(person.greet());
 
 ## Class vs Instance Attributes
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class Counter:
     # Class attribute (shared by all instances)
     total_count = 0
@@ -89,9 +81,8 @@ c1 = Counter("First")
 c2 = Counter("Second")
 print(Counter.total_count)  # 2
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 class Counter {
   // Class field (static)
   static totalCount = 0;
@@ -112,8 +103,6 @@ const c1 = new Counter("First");
 const c2 = new Counter("Second");
 console.log(Counter.totalCount);  // 2
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: class attributes defined at class level
@@ -123,9 +112,7 @@ console.log(Counter.totalCount);  // 2
 
 ## Class Methods and Static Methods
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class MathUtils:
     @staticmethod
     def add(a, b):
@@ -152,9 +139,8 @@ class Person:
 
 person = Person.from_birth_year("Alice", 1994)
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 class MathUtils {
   static add(a, b) {
     return a + b;
@@ -184,8 +170,6 @@ class Person {
 
 const person = Person.fromBirthYear("Alice", 1994);
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `@staticmethod` and `@classmethod` decorators
@@ -195,9 +179,7 @@ const person = Person.fromBirthYear("Alice", 1994);
 
 ## Properties and Getters/Setters
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class Circle:
     def __init__(self, radius):
         self._radius = radius
@@ -221,9 +203,8 @@ print(circle.radius)  # 5
 print(circle.area)    # 78.5
 circle.radius = 10    # Uses setter
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 class Circle {
   constructor(radius) {
     this._radius = radius;
@@ -250,8 +231,6 @@ console.log(circle.radius);  // 5
 console.log(circle.area);    // 78.5
 circle.radius = 10;          // Uses setter
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `@property` decorator for getters
@@ -262,9 +241,7 @@ circle.radius = 10;          // Uses setter
 
 ## Inheritance
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class Animal:
     def __init__(self, name):
         self.name = name
@@ -284,9 +261,8 @@ dog = Dog("Buddy", "Golden Retriever")
 print(dog.speak())  # "Woof!"
 print(dog.name)     # "Buddy"
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 class Animal {
   constructor(name) {
     this.name = name;
@@ -312,8 +288,6 @@ const dog = new Dog("Buddy", "Golden Retriever");
 console.log(dog.speak());  // "Woof!"
 console.log(dog.name);     // "Buddy"
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `class Child(Parent)`
@@ -323,9 +297,7 @@ console.log(dog.name);     // "Buddy"
 
 ## Private Attributes/Methods
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class BankAccount:
     def __init__(self, balance):
         self.__balance = balance  # Private (name mangling)
@@ -342,9 +314,8 @@ print(account.get_balance())    # 1500
 # print(account.__balance)      # AttributeError
 # Actually accessible via: account._BankAccount__balance
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 class BankAccount {
   #balance;  // Private field (ES2022+)
 
@@ -366,8 +337,6 @@ account.deposit(500);
 console.log(account.getBalance());  // 1500
 // console.log(account.#balance);   // SyntaxError
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: double underscore `__` for name mangling
@@ -377,9 +346,7 @@ console.log(account.getBalance());  // 1500
 
 ## Magic Methods (Dunder Methods)
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 class Point:
     def __init__(self, x, y):
         self.x = x
@@ -407,9 +374,8 @@ p3 = p1 + p2        # Point(4, 6)
 print(p1 == p2)     # False
 print(len(p1))      # 2
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```javascript
+
+```javascript tab="JavaScript/TypeScript"
 class Point {
   constructor(x, y) {
     this.x = x;
@@ -438,8 +404,6 @@ console.log(p1.toString());  // "Point(1, 2)"
 const p3 = p1.add(p2);       // Point(4, 6)
 console.log(p1.equals(p2));  // false
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: magic methods for operator overloading
@@ -449,9 +413,7 @@ console.log(p1.equals(p2));  // false
 
 ## Abstract Classes
 
-<Tabs items={['Python', 'JavaScript/TypeScript']}>
-<Tab value="Python">
-```python
+```python tab="Python"
 from abc import ABC, abstractmethod
 
 class Shape(ABC):
@@ -477,9 +439,8 @@ class Rectangle(Shape):
 # shape = Shape()  # Error: can't instantiate abstract class
 rect = Rectangle(5, 10)
 ```
-</Tab>
-<Tab value="JavaScript/TypeScript">
-```typescript
+
+```typescript tab="JavaScript/TypeScript"
 // TypeScript only
 abstract class Shape {
   abstract area(): number;
@@ -506,8 +467,6 @@ class Rectangle extends Shape {
 // const shape = new Shape();  // Error
 const rect = new Rectangle(5, 10);
 ```
-</Tab>
-</Tabs>
 
 **Key Differences:**
 - Python: `ABC` class and `@abstractmethod`
