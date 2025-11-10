@@ -1,0 +1,549 @@
+---
+title: Error Handling
+description: Exception handling in Python compared to JavaScript's try-catch.
+---
+
+## Basic Try-Catch/Except
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+
+# Multiple exceptions
+try:
+    value = int("not a number")
+except ValueError:
+    print("Invalid number")
+except TypeError:
+    print("Wrong type")
+
+# Catch any exception
+try:
+    risky_operation()
+except Exception as e:
+    print(f"Error: {e}")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+try {
+  const result = 10 / 0;  // No error, returns Infinity
+} catch (error) {
+  console.log("Cannot divide by zero");
+}
+
+// All exceptions are Error objects
+try {
+  const value = parseInt("not a number");  // Returns NaN
+} catch (error) {
+  console.log("Invalid number");
+}
+
+// Catch any error
+try {
+  riskyOperation();
+} catch (error) {
+  console.log(`Error: ${error.message}`);
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `except` (not `catch`)
+- Python: specific exception types
+- JavaScript: single `Error` type, check manually
+- Python: `as e` to bind exception
+- JavaScript: error is parameter to catch block
+
+## Finally Block
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+file = None
+try:
+    file = open('data.txt', 'r')
+    content = file.read()
+except FileNotFoundError:
+    print("File not found")
+finally:
+    if file:
+        file.close()
+    print("Cleanup complete")
+
+# Context manager (better approach)
+try:
+    with open('data.txt', 'r') as file:
+        content = file.read()
+except FileNotFoundError:
+    print("File not found")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+let file;
+try {
+  file = await openFile('data.txt');
+  const content = await file.read();
+} catch (error) {
+  console.log("File not found");
+} finally {
+  if (file) {
+    await file.close();
+  }
+  console.log("Cleanup complete");
+}
+
+// Using-style (TypeScript 5.2+)
+{
+  using file = await openFile('data.txt');
+  const content = await file.read();
+}  // Auto-cleanup
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Both have `finally` blocks
+- Python: `with` statement for automatic cleanup
+- JavaScript: relatively new `using` statement
+- Both ensure cleanup code runs
+
+## Else Block (Python Only)
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+try:
+    result = int("42")
+except ValueError:
+    print("Invalid number")
+else:
+    print(f"Success! Result: {result}")
+    # This runs only if no exception occurred
+finally:
+    print("Always runs")
+
+# Useful pattern
+try:
+    data = fetch_data()
+except NetworkError:
+    data = get_cached_data()
+else:
+    cache_data(data)  # Only cache if fetch succeeded
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// No else clause in JavaScript
+let result;
+let success = false;
+
+try {
+  result = parseInt("42");
+  success = true;
+} catch (error) {
+  console.log("Invalid number");
+}
+
+if (success) {
+  console.log(`Success! Result: ${result}`);
+} finally {
+  console.log("Always runs");
+}
+
+// Alternative pattern
+try {
+  const data = await fetchData();
+  cacheData(data);  // Only runs if fetch succeeded
+} catch (error) {
+  const data = getCachedData();
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has `else` clause in try-except
+- JavaScript has no `else` clause
+- Python `else` runs if no exception occurred
+- JavaScript requires manual flag or nested logic
+
+## Raising/Throwing Exceptions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Raise exception
+raise ValueError("Invalid value")
+
+# Raise with no argument (re-raise)
+try:
+    risky_operation()
+except Exception:
+    print("Logging error")
+    raise  # Re-raise the same exception
+
+# Raise from another exception
+try:
+    operation()
+except ValueError as e:
+    raise TypeError("Wrong type") from e
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Throw error
+throw new Error("Invalid value");
+
+// Throw custom message
+throw new TypeError("Invalid value");
+
+// Re-throw
+try {
+  riskyOperation();
+} catch (error) {
+  console.log("Logging error");
+  throw error;  // Re-throw
+}
+
+// Chain errors (not native, but common pattern)
+try {
+  operation();
+} catch (error) {
+  const newError = new TypeError("Wrong type");
+  newError.cause = error;
+  throw newError;
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `raise` keyword
+- JavaScript: `throw` keyword
+- Python: `raise` with no args re-raises
+- JavaScript: must `throw error` explicitly
+- Python: `from` for exception chaining
+
+## Custom Exceptions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Custom exception class
+class ValidationError(Exception):
+    def __init__(self, message, field):
+        super().__init__(message)
+        self.field = field
+
+class DatabaseError(Exception):
+    pass
+
+# Usage
+def validate_email(email):
+    if "@" not in email:
+        raise ValidationError(
+            "Invalid email format",
+            field="email"
+        )
+
+try:
+    validate_email("invalid")
+except ValidationError as e:
+    print(f"Error in {e.field}: {e}")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Custom error class
+class ValidationError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ValidationError';
+    this.field = field;
+  }
+}
+
+class DatabaseError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'DatabaseError';
+  }
+}
+
+// Usage
+function validateEmail(email) {
+  if (!email.includes("@")) {
+    throw new ValidationError(
+      "Invalid email format",
+      "email"
+    );
+  }
+}
+
+try {
+  validateEmail("invalid");
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.log(`Error in ${error.field}: ${error.message}`);
+  }
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: inherit from `Exception`
+- JavaScript: inherit from `Error`
+- JavaScript: must set `name` property
+- Both use `super()` to call parent constructor
+- Both support custom properties
+
+## Common Exception Types
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Built-in exceptions
+ValueError       # Invalid value
+TypeError        # Wrong type
+KeyError         # Missing dict key
+IndexError       # Invalid index
+AttributeError   # Missing attribute
+FileNotFoundError # File not found
+ZeroDivisionError # Division by zero
+ImportError      # Import failed
+RuntimeError     # Generic runtime error
+
+# Example usage
+try:
+    value = int("not a number")
+except ValueError:
+    print("Cannot convert to int")
+
+try:
+    data = {"key": "value"}
+    print(data["missing"])
+except KeyError:
+    print("Key not found")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Built-in error types
+Error            // Generic error
+TypeError        // Wrong type
+ReferenceError   // Undefined variable
+SyntaxError      // Invalid syntax
+RangeError       // Invalid range
+// No ValueError, KeyError, etc.
+
+// Example usage
+try {
+  const value = parseInt("not a number");
+  // Returns NaN, doesn't throw
+  if (isNaN(value)) {
+    throw new Error("Cannot convert to number");
+  }
+} catch (error) {
+  console.log(error.message);
+}
+
+try {
+  const data = { key: "value" };
+  console.log(data.missing);  // undefined, doesn't throw
+} catch (error) {
+  console.log("Key not found");
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has more specific exception types
+- JavaScript has fewer built-in error types
+- Python throws on invalid conversion
+- JavaScript returns `NaN` or `undefined`
+- Python throws on missing dictionary keys
+- JavaScript returns `undefined` for missing properties
+
+## Error Context and Stack Traces
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+import traceback
+
+try:
+    raise ValueError("Something went wrong")
+except Exception as e:
+    # Get exception info
+    print(f"Type: {type(e).__name__}")
+    print(f"Message: {str(e)}")
+    print(f"Args: {e.args}")
+
+    # Print stack trace
+    traceback.print_exc()
+
+    # Get stack trace as string
+    stack = traceback.format_exc()
+    print(stack)
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+try {
+  throw new Error("Something went wrong");
+} catch (error) {
+  // Get error info
+  console.log(`Type: ${error.name}`);
+  console.log(`Message: ${error.message}`);
+  console.log(`Stack: ${error.stack}`);
+
+  // Error object properties
+  console.log(error.toString());
+
+  // Stack trace is automatically included
+  console.error(error);
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `traceback` module for stack traces
+- JavaScript: `stack` property on Error objects
+- Both provide type, message, and stack information
+- JavaScript stack traces are built-in
+- Python requires `traceback` for formatted output
+
+## Assertions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Assert statement
+assert 2 + 2 == 4
+assert len(items) > 0, "List must not be empty"
+
+# Assertions can be disabled with -O flag
+# python -O script.py
+
+def divide(a, b):
+    assert b != 0, "Divisor cannot be zero"
+    return a / b
+
+# Assertions for development/testing only
+# Use proper error handling in production
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// No native assert in browser JavaScript
+// Node.js has assert module
+import assert from 'assert';
+
+assert.strictEqual(2 + 2, 4);
+assert(items.length > 0, "List must not be empty");
+
+function divide(a, b) {
+  assert(b !== 0, "Divisor cannot be zero");
+  return a / b;
+}
+
+// Or use console.assert
+console.assert(2 + 2 === 4, "Math is broken");
+
+// Or throw manually
+if (b === 0) {
+  throw new Error("Divisor cannot be zero");
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: built-in `assert` statement
+- JavaScript: `assert` module in Node.js only
+- Python assertions can be disabled
+- JavaScript: use `console.assert` or manual throws
+- Both: assertions for development, not production
+
+## Async Error Handling
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+import asyncio
+
+async def fetch_data():
+    try:
+        # Async operation
+        result = await async_operation()
+        return result
+    except Exception as e:
+        print(f"Error: {e}")
+        raise
+
+# Using asyncio
+async def main():
+    try:
+        data = await fetch_data()
+    except Exception:
+        print("Failed to fetch data")
+
+asyncio.run(main())
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+async function fetchData() {
+  try {
+    // Async operation
+    const result = await asyncOperation();
+    return result;
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    throw error;
+  }
+}
+
+// Using async/await
+async function main() {
+  try {
+    const data = await fetchData();
+  } catch (error) {
+    console.log("Failed to fetch data");
+  }
+}
+
+main();
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Both use try-catch with async/await
+- Python: `async def` and `await`
+- JavaScript: `async function` and `await`
+- Error handling syntax is identical for async
+
+## Quick Reference
+
+| Concept | Python | JavaScript/TypeScript |
+|---------|--------|---------------------|
+| Try-catch | `try:` `except:` | `try {}` `catch () {}` |
+| Finally | `finally:` | `finally {}` |
+| Else clause | `else:` | No equivalent |
+| Raise/throw | `raise Exception()` | `throw new Error()` |
+| Re-raise | `raise` | `throw error` |
+| Custom exception | Inherit `Exception` | Inherit `Error` |
+| Multiple catches | Multiple `except` | Manual `instanceof` |
+| Exception binding | `except E as e:` | `catch (error)` |
+| Assertions | `assert condition` | `console.assert()` |

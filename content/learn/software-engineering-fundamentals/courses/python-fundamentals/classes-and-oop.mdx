@@ -1,0 +1,530 @@
+---
+title: Classes and OOP
+description: Object-oriented programming in Python vs JavaScript/TypeScript.
+---
+
+## Basic Class Syntax
+
+<Tabs items={['Python', 'JavaScript', 'TypeScript']}>
+<Tab value="Python">
+```python
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greet(self):
+        return f"Hello, I'm {self.name}"
+
+# Creating instance
+person = Person("Alice", 30)
+print(person.greet())
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    return `Hello, I'm ${this.name}`;
+  }
+}
+
+// Creating instance
+const person = new Person("Alice", 30);
+console.log(person.greet());
+```
+</Tab>
+<Tab value="TypeScript">
+```typescript
+class Person {
+  name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet(): string {
+    return `Hello, I'm ${this.name}`;
+  }
+}
+
+const person = new Person("Alice", 30);
+console.log(person.greet());
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `__init__` method (not `constructor`)
+- Python: `self` parameter (not `this`)
+- Python: no `new` keyword needed
+- TypeScript: explicit type annotations
+
+## Class vs Instance Attributes
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+class Counter:
+    # Class attribute (shared by all instances)
+    total_count = 0
+
+    def __init__(self, name):
+        # Instance attribute (unique to each instance)
+        self.name = name
+        self.count = 0
+        Counter.total_count += 1
+
+    def increment(self):
+        self.count += 1
+
+c1 = Counter("First")
+c2 = Counter("Second")
+print(Counter.total_count)  # 2
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+class Counter {
+  // Class field (static)
+  static totalCount = 0;
+
+  constructor(name) {
+    // Instance properties
+    this.name = name;
+    this.count = 0;
+    Counter.totalCount++;
+  }
+
+  increment() {
+    this.count++;
+  }
+}
+
+const c1 = new Counter("First");
+const c2 = new Counter("Second");
+console.log(Counter.totalCount);  // 2
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: class attributes defined at class level
+- JavaScript: `static` keyword for class properties
+- Python: access via `ClassName.attribute`
+- JavaScript: same with `ClassName.attribute`
+
+## Class Methods and Static Methods
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+class MathUtils:
+    @staticmethod
+    def add(a, b):
+        return a + b
+
+    @classmethod
+    def from_string(cls, string):
+        # cls refers to the class
+        return cls()
+
+# Call without instance
+result = MathUtils.add(5, 3)
+
+# Class method usage
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @classmethod
+    def from_birth_year(cls, name, birth_year):
+        age = 2024 - birth_year
+        return cls(name, age)
+
+person = Person.from_birth_year("Alice", 1994)
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+class MathUtils {
+  static add(a, b) {
+    return a + b;
+  }
+
+  static fromString(string) {
+    // this refers to the class
+    return new this();
+  }
+}
+
+// Call without instance
+const result = MathUtils.add(5, 3);
+
+// Static factory method
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  static fromBirthYear(name, birthYear) {
+    const age = 2024 - birthYear;
+    return new this(name, age);
+  }
+}
+
+const person = Person.fromBirthYear("Alice", 1994);
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `@staticmethod` and `@classmethod` decorators
+- JavaScript: `static` keyword for both
+- Python: `cls` parameter in class methods
+- JavaScript: `this` refers to class in static methods
+
+## Properties and Getters/Setters
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+
+    @property
+    def radius(self):
+        return self._radius
+
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            raise ValueError("Radius must be positive")
+        self._radius = value
+
+    @property
+    def area(self):
+        return 3.14 * self._radius ** 2
+
+circle = Circle(5)
+print(circle.radius)  # 5
+print(circle.area)    # 78.5
+circle.radius = 10    # Uses setter
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+class Circle {
+  constructor(radius) {
+    this._radius = radius;
+  }
+
+  get radius() {
+    return this._radius;
+  }
+
+  set radius(value) {
+    if (value < 0) {
+      throw new Error("Radius must be positive");
+    }
+    this._radius = value;
+  }
+
+  get area() {
+    return 3.14 * this._radius ** 2;
+  }
+}
+
+const circle = new Circle(5);
+console.log(circle.radius);  // 5
+console.log(circle.area);    // 78.5
+circle.radius = 10;          // Uses setter
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `@property` decorator for getters
+- JavaScript: `get` keyword
+- Python: `@property_name.setter` for setters
+- JavaScript: `set` keyword
+- Both provide computed properties
+
+## Inheritance
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def speak(self):
+        return "Some sound"
+
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name)
+        self.breed = breed
+
+    def speak(self):
+        return "Woof!"
+
+dog = Dog("Buddy", "Golden Retriever")
+print(dog.speak())  # "Woof!"
+print(dog.name)     # "Buddy"
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    return "Some sound";
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name);
+    this.breed = breed;
+  }
+
+  speak() {
+    return "Woof!";
+  }
+}
+
+const dog = new Dog("Buddy", "Golden Retriever");
+console.log(dog.speak());  // "Woof!"
+console.log(dog.name);     // "Buddy"
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `class Child(Parent)`
+- JavaScript: `class Child extends Parent`
+- Both: `super()` to call parent constructor
+- Both support method overriding
+
+## Private Attributes/Methods
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # Private (name mangling)
+
+    def deposit(self, amount):
+        self.__balance += amount
+
+    def get_balance(self):
+        return self.__balance
+
+account = BankAccount(1000)
+account.deposit(500)
+print(account.get_balance())    # 1500
+# print(account.__balance)      # AttributeError
+# Actually accessible via: account._BankAccount__balance
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+class BankAccount {
+  #balance;  // Private field (ES2022+)
+
+  constructor(balance) {
+    this.#balance = balance;
+  }
+
+  deposit(amount) {
+    this.#balance += amount;
+  }
+
+  getBalance() {
+    return this.#balance;
+  }
+}
+
+const account = new BankAccount(1000);
+account.deposit(500);
+console.log(account.getBalance());  // 1500
+// console.log(account.#balance);   // SyntaxError
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: double underscore `__` for name mangling
+- JavaScript: `#` prefix for private fields (ES2022+)
+- Python "private" can be accessed with name mangling
+- JavaScript private fields are truly private
+
+## Magic Methods (Dunder Methods)
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"Point({self.x}, {self.y})"
+
+    def __repr__(self):
+        return f"Point(x={self.x}, y={self.y})"
+
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+
+    def __len__(self):
+        return 2
+
+p1 = Point(1, 2)
+p2 = Point(3, 4)
+print(p1)           # "Point(1, 2)"
+p3 = p1 + p2        # Point(4, 6)
+print(p1 == p2)     # False
+print(len(p1))      # 2
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  toString() {
+    return `Point(${this.x}, ${this.y})`;
+  }
+
+  // No operator overloading, create methods
+  add(other) {
+    return new Point(this.x + other.x, this.y + other.y);
+  }
+
+  equals(other) {
+    return this.x === other.x && this.y === other.y;
+  }
+
+  // No length operator
+}
+
+const p1 = new Point(1, 2);
+const p2 = new Point(3, 4);
+console.log(p1.toString());  // "Point(1, 2)"
+const p3 = p1.add(p2);       // Point(4, 6)
+console.log(p1.equals(p2));  // false
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: magic methods for operator overloading
+- JavaScript: no operator overloading
+- Python: `__str__`, `__repr__`, `__add__`, `__eq__`, etc.
+- JavaScript: manual methods like `toString()`, `add()`, `equals()`
+
+## Abstract Classes
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
+    @abstractmethod
+    def area(self):
+        pass
+
+    @abstractmethod
+    def perimeter(self):
+        pass
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+    def perimeter(self):
+        return 2 * (self.width + self.height)
+
+# shape = Shape()  # Error: can't instantiate abstract class
+rect = Rectangle(5, 10)
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```typescript
+// TypeScript only
+abstract class Shape {
+  abstract area(): number;
+  abstract perimeter(): number;
+}
+
+class Rectangle extends Shape {
+  constructor(
+    private width: number,
+    private height: number
+  ) {
+    super();
+  }
+
+  area(): number {
+    return this.width * this.height;
+  }
+
+  perimeter(): number {
+    return 2 * (this.width + this.height);
+  }
+}
+
+// const shape = new Shape();  // Error
+const rect = new Rectangle(5, 10);
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `ABC` class and `@abstractmethod`
+- TypeScript: `abstract` keyword (no native JS support)
+- Both prevent instantiation of abstract classes
+- Both require subclasses to implement abstract methods
+
+## Quick Reference
+
+| Concept | Python | JavaScript/TypeScript |
+|---------|--------|---------------------|
+| Constructor | `__init__(self)` | `constructor()` |
+| Instance reference | `self` | `this` |
+| Inheritance | `class Child(Parent)` | `class Child extends Parent` |
+| Call parent | `super().__init__()` | `super()` |
+| Class method | `@classmethod` | `static` |
+| Static method | `@staticmethod` | `static` |
+| Property | `@property` | `get` / `set` |
+| Private | `__attribute` | `#attribute` |
+| String representation | `__str__` | `toString()` |

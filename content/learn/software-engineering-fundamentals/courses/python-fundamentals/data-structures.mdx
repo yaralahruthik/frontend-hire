@@ -1,0 +1,436 @@
+---
+title: Data Structures
+description: Lists, dictionaries, tuples, and sets compared to JavaScript arrays and objects.
+---
+
+## Lists vs Arrays
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Creating lists
+fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", True, 3.14]
+
+# Accessing elements
+first = fruits[0]        # "apple"
+last = fruits[-1]        # "cherry" (negative indexing)
+second_last = fruits[-2] # "banana"
+
+# Slicing
+subset = fruits[0:2]     # ["apple", "banana"]
+first_two = fruits[:2]   # ["apple", "banana"]
+last_two = fruits[-2:]   # ["banana", "cherry"]
+reversed_list = fruits[::-1]  # Reverse
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Creating arrays
+const fruits = ["apple", "banana", "cherry"];
+const numbers = [1, 2, 3, 4, 5];
+const mixed = [1, "hello", true, 3.14];
+
+// Accessing elements
+const first = fruits[0];              // "apple"
+const last = fruits[fruits.length - 1]; // "cherry"
+const secondLast = fruits[fruits.length - 2]; // "banana"
+
+// Slicing
+const subset = fruits.slice(0, 2);    // ["apple", "banana"]
+const firstTwo = fruits.slice(0, 2);  // ["apple", "banana"]
+const lastTwo = fruits.slice(-2);     // ["banana", "cherry"]
+const reversed = [...fruits].reverse(); // Reverse (copy first)
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python supports negative indexing natively (`-1` is last)
+- Python slicing: `list[start:end:step]`
+- JavaScript: `slice()` method, no step parameter
+- Python slicing doesn't mutate original list
+
+## List Methods
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+fruits = ["apple", "banana"]
+
+# Adding elements
+fruits.append("cherry")        # Add to end
+fruits.insert(1, "orange")     # Insert at index
+fruits.extend(["grape", "kiwi"]) # Add multiple
+
+# Removing elements
+fruits.pop()           # Remove last, returns it
+fruits.pop(0)          # Remove at index
+fruits.remove("banana") # Remove by value
+fruits.clear()         # Remove all
+
+# Searching
+fruits.index("apple")  # Get index (error if not found)
+fruits.count("apple")  # Count occurrences
+
+# Sorting
+fruits.sort()          # Sort in place
+sorted_fruits = sorted(fruits)  # Return new sorted list
+fruits.reverse()       # Reverse in place
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+const fruits = ["apple", "banana"];
+
+// Adding elements
+fruits.push("cherry");          // Add to end
+fruits.splice(1, 0, "orange");  // Insert at index
+fruits.push(...["grape", "kiwi"]); // Add multiple
+
+// Removing elements
+fruits.pop();              // Remove last, returns it
+fruits.shift();            // Remove first
+const index = fruits.indexOf("banana");
+fruits.splice(index, 1);   // Remove by index
+fruits.length = 0;         // Clear all
+
+// Searching
+fruits.indexOf("apple");   // Get index (-1 if not found)
+fruits.filter(f => f === "apple").length; // Count
+
+// Sorting
+fruits.sort();             // Sort in place
+const sortedFruits = [...fruits].sort(); // Return new
+fruits.reverse();          // Reverse in place
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `append()`, `extend()`, `remove()`
+- JavaScript: `push()`, `splice()`, manual removal
+- Python: `index()` throws error, JS `indexOf()` returns `-1`
+- Python has `count()` method
+
+## Dictionaries vs Objects
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Creating dictionaries
+person = {
+    "name": "Alice",
+    "age": 30,
+    "city": "NYC"
+}
+
+# Accessing values
+name = person["name"]           # KeyError if missing
+age = person.get("age")         # None if missing
+age = person.get("age", 0)      # Default value
+
+# Adding/updating
+person["email"] = "alice@example.com"
+person["age"] = 31
+
+# Removing
+del person["city"]
+email = person.pop("email")     # Remove and return
+person.clear()                  # Remove all
+
+# Checking keys
+"name" in person                # True
+"phone" not in person           # True
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Creating objects
+const person = {
+  name: "Alice",
+  age: 30,
+  city: "NYC"
+};
+
+// Accessing values
+const name = person.name;         // undefined if missing
+const age = person["age"];        // Bracket notation
+const email = person.email || "default"; // Default
+
+// Adding/updating
+person.email = "alice@example.com";
+person.age = 31;
+
+// Removing
+delete person.city;
+const email = person.email;
+delete person.email;
+// No clear method
+
+// Checking keys
+"name" in person;                // true
+!("phone" in person);            // true
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `dict["key"]` throws error if missing
+- JavaScript: `obj.key` returns `undefined` if missing
+- Python: `get()` method with default values
+- Both use similar syntax for creation
+
+## Dictionary Methods
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+person = {"name": "Alice", "age": 30}
+
+# Keys, values, items
+keys = person.keys()       # dict_keys(['name', 'age'])
+values = person.values()   # dict_values(['Alice', 30])
+items = person.items()     # dict_items([('name', 'Alice'), ...])
+
+# Iteration
+for key in person:
+    print(key, person[key])
+
+for key, value in person.items():
+    print(key, value)
+
+# Merging
+defaults = {"age": 0, "city": "Unknown"}
+person = {**defaults, **person}  # Spread operator
+
+# Update method
+person.update({"email": "alice@ex.com", "age": 31})
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+const person = { name: "Alice", age: 30 };
+
+// Keys, values, entries
+const keys = Object.keys(person);     // ["name", "age"]
+const values = Object.values(person); // ["Alice", 30]
+const entries = Object.entries(person); // [["name", "Alice"], ...]
+
+// Iteration
+for (const key in person) {
+  console.log(key, person[key]);
+}
+
+for (const [key, value] of Object.entries(person)) {
+  console.log(key, value);
+}
+
+// Merging
+const defaults = { age: 0, city: "Unknown" };
+const merged = { ...defaults, ...person }; // Spread
+
+// Assign method
+Object.assign(person, { email: "alice@ex.com", age: 31 });
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `dict.keys()`, `dict.values()`, `dict.items()`
+- JavaScript: `Object.keys()`, `Object.values()`, `Object.entries()`
+- Both support spread operator for merging
+- Python: `update()`, JavaScript: `Object.assign()`
+
+## Tuples (Immutable Lists)
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Tuples are immutable
+point = (10, 20)
+rgb = (255, 0, 128)
+
+# Accessing
+x = point[0]
+y = point[1]
+
+# Unpacking
+x, y = point
+r, g, b = rgb
+
+# Swapping values (Pythonic way)
+a, b = b, a
+
+# Single element tuple
+single = (1,)  # Note the comma
+
+# Tuples as dict keys (lists can't)
+locations = {
+    (0, 0): "origin",
+    (1, 0): "right"
+}
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Arrays (no immutable tuples, use Object.freeze or as const)
+const point = [10, 20];
+const rgb = [255, 0, 128];
+
+// Accessing
+const x = point[0];
+const y = point[1];
+
+// Destructuring
+const [x, y] = point;
+const [r, g, b] = rgb;
+
+// Swapping values
+[a, b] = [b, a];
+
+// Single element
+const single = [1];
+
+// No tuple as keys (use strings)
+const locations = {
+  "0,0": "origin",
+  "1,0": "right"
+};
+
+// TypeScript: typed tuples
+const point: [number, number] = [10, 20];
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has immutable tuples
+- JavaScript only has arrays (mutable)
+- TypeScript can type-check tuple shapes
+- Python tuples can be dictionary keys
+
+## Sets
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Creating sets (unique values)
+numbers = {1, 2, 3, 3, 4}  # {1, 2, 3, 4}
+empty_set = set()          # Not {} (that's a dict)
+
+# Adding/removing
+numbers.add(5)
+numbers.remove(3)          # Error if not found
+numbers.discard(3)         # No error if not found
+
+# Set operations
+a = {1, 2, 3}
+b = {3, 4, 5}
+
+union = a | b              # {1, 2, 3, 4, 5}
+intersection = a & b       # {3}
+difference = a - b         # {1, 2}
+symmetric_diff = a ^ b     # {1, 2, 4, 5}
+
+# Membership
+3 in a                     # True
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Creating Sets
+const numbers = new Set([1, 2, 3, 3, 4]); // Set {1, 2, 3, 4}
+const emptySet = new Set();
+
+// Adding/removing
+numbers.add(5);
+numbers.delete(3);         // Returns false if not found
+
+// Set operations (manual)
+const a = new Set([1, 2, 3]);
+const b = new Set([3, 4, 5]);
+
+const union = new Set([...a, ...b]);
+const intersection = new Set([...a].filter(x => b.has(x)));
+const difference = new Set([...a].filter(x => !b.has(x)));
+
+// Membership
+a.has(3);                  // true
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `{1, 2, 3}` literal syntax
+- JavaScript: `new Set([1, 2, 3])`
+- Python has built-in set operators (`|`, `&`, `-`, `^`)
+- JavaScript requires manual implementation of set operations
+
+## Comprehensions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# List comprehension
+squares = [x ** 2 for x in range(10)]
+
+# Set comprehension
+unique_lengths = {len(word) for word in ["a", "ab", "abc"]}
+
+# Dict comprehension
+word_lengths = {word: len(word) for word in ["cat", "dog"]}
+
+# With conditions
+evens = [x for x in range(10) if x % 2 == 0]
+
+# Nested
+matrix = [[i + j for j in range(3)] for i in range(3)]
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Array methods
+const squares = Array.from({ length: 10 }, (_, i) => i ** 2);
+// or
+const squares = [...Array(10).keys()].map(x => x ** 2);
+
+// Set
+const uniqueLengths = new Set(["a", "ab", "abc"].map(w => w.length));
+
+// Object (no comprehension)
+const wordLengths = Object.fromEntries(
+  ["cat", "dog"].map(word => [word, word.length])
+);
+
+// With filter
+const evens = [...Array(10).keys()].filter(x => x % 2 === 0);
+
+// Nested
+const matrix = Array(3).fill(0).map((_, i) =>
+  Array(3).fill(0).map((_, j) => i + j)
+);
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has native comprehensions for lists, sets, dicts
+- JavaScript uses array methods and constructors
+- Python comprehensions are more concise
+- Both can express the same logic
+
+## Quick Reference
+
+| Concept | Python | JavaScript/TypeScript |
+|---------|--------|---------------------|
+| List/Array | `[1, 2, 3]` | `[1, 2, 3]` |
+| Last element | `list[-1]` | `arr[arr.length - 1]` |
+| Slice | `list[1:3]` | `arr.slice(1, 3)` |
+| Dictionary/Object | `{"key": "value"}` | `{ key: "value" }` |
+| Get with default | `dict.get("key", default)` | `obj.key \|\| default` |
+| Tuple | `(1, 2)` | `[1, 2]` (no tuples) |
+| Set | `{1, 2, 3}` | `new Set([1, 2, 3])` |
+| Set union | `a \| b` | `new Set([...a, ...b])` |
+| Comprehension | `[x*2 for x in list]` | `list.map(x => x*2)` |

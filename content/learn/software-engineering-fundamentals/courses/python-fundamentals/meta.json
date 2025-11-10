@@ -1,0 +1,16 @@
+{
+  "title": "Python Fundamentals for Frontend Engineers",
+  "description": "Learn Python with JavaScript/TypeScript comparisons at every step.",
+  "pages": [
+    "overview",
+    "variables-and-types",
+    "functions",
+    "control-flow",
+    "data-structures",
+    "classes-and-oop",
+    "modules-and-imports",
+    "error-handling",
+    "async-programming",
+    "summary"
+  ]
+}

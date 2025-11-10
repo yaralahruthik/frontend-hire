@@ -1,0 +1,350 @@
+---
+title: Functions
+description: Function syntax, parameters, and scope in Python vs JavaScript.
+---
+
+## Basic Function Syntax
+
+<Tabs items={['Python', 'JavaScript', 'TypeScript']}>
+<Tab value="Python">
+```python
+def greet(name):
+    return f"Hello, {name}"
+
+result = greet("Alice")
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+function greet(name) {
+  return `Hello, ${name}`;
+}
+
+const result = greet("Alice");
+```
+</Tab>
+<Tab value="TypeScript">
+```typescript
+function greet(name: string): string {
+  return `Hello, ${name}`;
+}
+
+const result = greet("Alice");
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python uses `def` keyword
+- Python uses indentation (no curly braces)
+- Colon (`:`) after function signature in Python
+
+## Arrow Functions vs Lambda
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Lambda (single expression only)
+square = lambda x: x ** 2
+
+# Regular function for multiple statements
+def calculate(x):
+    result = x ** 2
+    return result
+
+numbers = [1, 2, 3, 4]
+squared = list(map(lambda x: x ** 2, numbers))
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Arrow function
+const square = (x) => x ** 2;
+
+// Arrow function with block
+const calculate = (x) => {
+  const result = x ** 2;
+  return result;
+};
+
+const numbers = [1, 2, 3, 4];
+const squared = numbers.map(x => x ** 2);
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `lambda` keyword (single expression only)
+- JavaScript: arrow functions (`=>`) support multiple statements
+- Python lambdas are more limited than JS arrow functions
+
+## Default Parameters
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}"
+
+greet("Alice")              # "Hello, Alice"
+greet("Bob", "Hi")          # "Hi, Bob"
+greet("Charlie", greeting="Hey")  # Named argument
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+function greet(name, greeting = "Hello") {
+  return `${greeting}, ${name}`;
+}
+
+greet("Alice");           // "Hello, Alice"
+greet("Bob", "Hi");       // "Hi, Bob"
+// No named arguments in JS
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Both support default parameters
+- Python supports named/keyword arguments
+- JavaScript doesn't have native named arguments
+
+## Rest Parameters and *args/**kwargs
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# *args - positional arguments
+def sum_all(*numbers):
+    return sum(numbers)
+
+sum_all(1, 2, 3, 4)  # 10
+
+# **kwargs - keyword arguments
+def print_info(**data):
+    for key, value in data.items():
+        print(f"{key}: {value}")
+
+print_info(name="Alice", age=30)
+
+# Both together
+def complex_func(required, *args, **kwargs):
+    print(required)
+    print(args)
+    print(kwargs)
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Rest parameters
+function sumAll(...numbers) {
+  return numbers.reduce((a, b) => a + b, 0);
+}
+
+sumAll(1, 2, 3, 4);  // 10
+
+// Destructuring for named params
+function printInfo({ name, age }) {
+  console.log(`${name}: ${age}`);
+}
+
+printInfo({ name: "Alice", age: 30 });
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `*args` for positional, `**kwargs` for keyword arguments
+- JavaScript: `...rest` for all variable arguments
+- Python has native keyword argument syntax
+
+## Unpacking Arguments
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+def add(a, b, c):
+    return a + b + c
+
+numbers = [1, 2, 3]
+result = add(*numbers)  # Unpacking list
+
+data = {"a": 1, "b": 2, "c": 3}
+result = add(**data)    # Unpacking dict
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+function add(a, b, c) {
+  return a + b + c;
+}
+
+const numbers = [1, 2, 3];
+const result = add(...numbers);  // Spread operator
+
+// No direct equivalent for **kwargs spread
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `*` for list/tuple, `**` for dict
+- JavaScript: `...` spread operator for arrays
+- Python can unpack dictionaries into keyword arguments
+
+## Function Scope
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+x = 10  # Global
+
+def outer():
+    y = 20  # Enclosing scope
+
+    def inner():
+        z = 30  # Local
+        global x  # Access global
+        nonlocal y  # Access enclosing
+        x = 100
+        y = 200
+
+    inner()
+    print(y)  # 200
+
+outer()
+print(x)  # 100
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+let x = 10;  // Global
+
+function outer() {
+  let y = 20;  // Enclosing scope
+
+  function inner() {
+    let z = 30;  // Local
+    x = 100;     // Access global
+    y = 200;     // Access enclosing
+  }
+
+  inner();
+  console.log(y);  // 200
+}
+
+outer();
+console.log(x);  // 100
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python requires `global` keyword to modify global variables
+- Python requires `nonlocal` keyword for enclosing scope variables
+- JavaScript can directly reassign outer scope variables
+
+## Higher-Order Functions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Function returning function
+def multiplier(factor):
+    def multiply(x):
+        return x * factor
+    return multiply
+
+double = multiplier(2)
+double(5)  # 10
+
+# Function as argument
+def apply(func, value):
+    return func(value)
+
+apply(lambda x: x ** 2, 5)  # 25
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Function returning function
+function multiplier(factor) {
+  return function(x) {
+    return x * factor;
+  };
+}
+
+const double = multiplier(2);
+double(5);  // 10
+
+// Function as argument
+function apply(func, value) {
+  return func(value);
+}
+
+apply(x => x ** 2, 5);  // 25
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Both languages treat functions as first-class citizens
+- Syntax differs, but concepts are identical
+- Python's lambda is more limited than JS arrow functions
+
+## Decorators vs Higher-Order Functions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+def log_call(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+
+@log_call
+def greet(name):
+    return f"Hello, {name}"
+
+greet("Alice")  # Prints: Calling greet
+                # Returns: Hello, Alice
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+function logCall(func) {
+  return function(...args) {
+    console.log(`Calling ${func.name}`);
+    return func(...args);
+  };
+}
+
+// Manual wrapping (no decorator syntax in JS)
+let greet = function(name) {
+  return `Hello, ${name}`;
+};
+
+greet = logCall(greet);
+
+greet("Alice");  // Logs: Calling greet
+                 // Returns: Hello, Alice
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has decorator syntax (`@decorator`)
+- JavaScript lacks native decorator syntax (use wrappers)
+- TypeScript has experimental decorators (different from Python)
+
+## Quick Reference
+
+| Concept | Python | JavaScript/TypeScript |
+|---------|--------|---------------------|
+| Function definition | `def func():` | `function func() {}` |
+| Lambda/Arrow | `lambda x: x * 2` | `x => x * 2` |
+| Default params | `def f(x=5):` | `function f(x = 5) {}` |
+| Variable args | `def f(*args):` | `function f(...args) {}` |
+| Keyword args | `def f(**kwargs):` | No direct equivalent |
+| Decorators | `@decorator` | Higher-order functions |

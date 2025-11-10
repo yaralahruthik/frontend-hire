@@ -1,0 +1,503 @@
+---
+title: Modules and Imports
+description: Python's module system compared to JavaScript's ES modules and CommonJS.
+---
+
+## Basic Imports
+
+<Tabs items={['Python', 'JavaScript (ES Modules)', 'JavaScript (CommonJS)']}>
+<Tab value="Python">
+```python
+# Import entire module
+import math
+print(math.sqrt(16))
+
+# Import specific items
+from math import sqrt, pi
+print(sqrt(16))
+
+# Import with alias
+import datetime as dt
+now = dt.datetime.now()
+
+# Import all (not recommended)
+from math import *
+```
+</Tab>
+<Tab value="JavaScript (ES Modules)">
+```javascript
+// Import entire module
+import * as math from './math.js';
+console.log(math.sqrt(16));
+
+// Import specific items
+import { sqrt, PI } from './math.js';
+console.log(sqrt(16));
+
+// Import with alias
+import * as dt from './datetime.js';
+const now = dt.now();
+
+// Import all named exports
+import * as everything from './module.js';
+```
+</Tab>
+<Tab value="JavaScript (CommonJS)">
+```javascript
+// Import entire module
+const math = require('./math');
+console.log(math.sqrt(16));
+
+// Import specific items (destructuring)
+const { sqrt, PI } = require('./math');
+console.log(sqrt(16));
+
+// No built-in aliasing
+const dt = require('./datetime');
+const now = dt.now();
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `import` and `from...import`
+- JavaScript: `import { }` for named exports
+- Python: `as` for aliases
+- JavaScript: `as` also works for aliases
+- Python imports are always absolute or relative paths
+
+## Module Structure
+
+<Tabs items={['Python', 'JavaScript (ES Modules)']}>
+<Tab value="Python">
+```python
+# math_utils.py
+PI = 3.14159
+
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+class Calculator:
+    pass
+
+# Using the module
+# main.py
+import math_utils
+
+result = math_utils.add(5, 3)
+```
+</Tab>
+<Tab value="JavaScript (ES Modules)">
+```javascript
+// math-utils.js
+export const PI = 3.14159;
+
+export function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+
+export class Calculator {}
+
+// Using the module
+// main.js
+import * as mathUtils from './math-utils.js';
+
+const result = mathUtils.add(5, 3);
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: everything at module level is accessible
+- JavaScript: must explicitly `export`
+- Python: implicit exports
+- JavaScript: explicit exports
+
+## Default Exports
+
+<Tabs items={['Python', 'JavaScript']}>
+<Tab value="Python">
+```python
+# No default exports in Python
+# Use __all__ to control * imports
+
+# utils.py
+__all__ = ['add', 'multiply']  # Only these are imported with *
+
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+def _private_function():  # Leading _ suggests private
+    pass
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+// utils.js
+export default function add(a, b) {
+  return a + b;
+}
+
+export function multiply(a, b) {
+  return a * b;
+}
+
+// main.js
+import add, { multiply } from './utils.js';
+
+// or rename default import
+import addFunction from './utils.js';
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- JavaScript has default exports
+- Python doesn't have default exports
+- Python uses `__all__` to control wildcard imports
+- JavaScript: import default with any name
+
+## Relative vs Absolute Imports
+
+<Tabs items={['Python', 'JavaScript']}>
+<Tab value="Python">
+```python
+# Project structure:
+# my_project/
+#   main.py
+#   utils/
+#     __init__.py
+#     math_utils.py
+#     string_utils.py
+
+# Absolute import (from project root)
+from utils.math_utils import add
+
+# Relative import (from current module)
+# Inside utils/string_utils.py:
+from .math_utils import add      # Same package
+from ..main import something     # Parent package
+from . import math_utils         # Import module
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+// Project structure:
+// my-project/
+//   main.js
+//   utils/
+//     math-utils.js
+//     string-utils.js
+
+// Relative import (always relative)
+import { add } from './utils/math-utils.js';
+
+// Inside utils/string-utils.js:
+import { add } from './math-utils.js';     // Same dir
+import something from '../main.js';        // Parent dir
+
+// Absolute (via module resolution)
+import { add } from 'utils/math-utils';    // With bundler
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: absolute imports from project root
+- JavaScript: relative paths or via bundler config
+- Python: `.` for relative imports
+- JavaScript: `./` or `../` for relative paths
+- Python: `__init__.py` makes directory a package
+
+## Package Structure
+
+<Tabs items={['Python', 'JavaScript']}>
+<Tab value="Python">
+```python
+# my_package/
+#   __init__.py
+#   module_a.py
+#   module_b.py
+
+# __init__.py
+from .module_a import function_a
+from .module_b import function_b
+
+__all__ = ['function_a', 'function_b']
+
+# Usage
+from my_package import function_a
+# or
+import my_package
+my_package.function_a()
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+// my-package/
+//   index.js
+//   module-a.js
+//   module-b.js
+
+// index.js (barrel export)
+export { functionA } from './module-a.js';
+export { functionB } from './module-b.js';
+
+// Usage
+import { functionA } from './my-package/index.js';
+// or with bundler
+import { functionA } from './my-package';
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `__init__.py` makes directory a package
+- JavaScript: `index.js` is entry point by convention
+- Python: `__init__.py` can contain initialization code
+- JavaScript: typically just re-exports
+
+## Package Management
+
+<Tabs items={['Python', 'JavaScript']}>
+<Tab value="Python">
+```python
+# requirements.txt
+requests==2.31.0
+numpy>=1.24.0
+pandas
+
+# Install packages
+# pip install -r requirements.txt
+
+# pyproject.toml (modern)
+[project]
+name = "my-project"
+version = "1.0.0"
+dependencies = [
+    "requests>=2.31.0",
+    "numpy>=1.24.0"
+]
+
+# Install package
+# pip install requests
+# or use uv, poetry, pipenv
+```
+</Tab>
+<Tab value="JavaScript">
+```json
+// package.json
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "lodash": ">=4.17.0"
+  }
+}
+
+// Install packages
+// npm install
+// pnpm install
+// yarn install
+
+// Install specific package
+// npm install axios
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `pip`, `uv`, `poetry`, `pipenv`
+- JavaScript: `npm`, `pnpm`, `yarn`
+- Python: `requirements.txt` or `pyproject.toml`
+- JavaScript: `package.json`
+- Both support version constraints
+
+## Standard Library
+
+<Tabs items={['Python', 'JavaScript (Node.js)']}>
+<Tab value="Python">
+```python
+# File operations
+import os
+os.listdir('.')
+
+# Path manipulation
+from pathlib import Path
+path = Path('folder/file.txt')
+
+# JSON
+import json
+data = json.loads('{"key": "value"}')
+
+# HTTP requests (external lib)
+import requests
+response = requests.get('https://api.example.com')
+
+# Date/time
+from datetime import datetime
+now = datetime.now()
+
+# Random
+import random
+num = random.randint(1, 10)
+```
+</Tab>
+<Tab value="JavaScript (Node.js)">
+```javascript
+// File operations
+import fs from 'fs';
+fs.readdirSync('.');
+
+// Path manipulation
+import path from 'path';
+const filePath = path.join('folder', 'file.txt');
+
+// JSON (built-in)
+const data = JSON.parse('{"key": "value"}');
+
+// HTTP requests (native fetch or external lib)
+const response = await fetch('https://api.example.com');
+
+// Date/time (built-in)
+const now = new Date();
+
+// Random (built-in)
+const num = Math.floor(Math.random() * 10) + 1;
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has extensive standard library
+- Node.js has smaller core, relies on npm packages
+- Python: `import module`
+- Node.js: `import module from 'module'`
+
+## Circular Imports
+
+<Tabs items={['Python', 'JavaScript']}>
+<Tab value="Python">
+```python
+# module_a.py
+from module_b import function_b
+
+def function_a():
+    return function_b()
+
+# module_b.py
+from module_a import function_a  # Circular!
+
+def function_b():
+    return "Hello"
+
+# Solution: Local import
+def function_a():
+    from module_b import function_b
+    return function_b()
+```
+</Tab>
+<Tab value="JavaScript">
+```javascript
+// module-a.js
+import { functionB } from './module-b.js';
+
+export function functionA() {
+  return functionB();
+}
+
+// module-b.js
+import { functionA } from './module-a.js';  // Circular!
+
+export function functionB() {
+  return "Hello";
+}
+
+// ES modules handle this better than CommonJS
+// but it's still best to avoid
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Both languages struggle with circular imports
+- Python: use local imports inside functions
+- JavaScript: ES modules handle it better than CommonJS
+- Best practice: refactor to avoid circular dependencies
+
+## Virtual Environments
+
+<Tabs items={['Python', 'JavaScript']}>
+<Tab value="Python">
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate (Unix)
+source venv/bin/activate
+
+# Activate (Windows)
+venv\Scripts\activate
+
+# Install packages
+pip install requests
+
+# Deactivate
+deactivate
+
+# Modern alternative: uv
+uv venv
+source .venv/bin/activate
+```
+</Tab>
+<Tab value="JavaScript">
+```bash
+# npm/pnpm/yarn handle this automatically
+# Dependencies are installed in node_modules/
+
+# Local project dependencies
+npm install
+
+# Global tools (discouraged)
+npm install -g some-tool
+
+# Use npx to run binaries
+npx some-tool
+
+# Or use package managers like pnpm
+pnpm install
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: explicit virtual environments
+- JavaScript: `node_modules` per project
+- Python: activate/deactivate environment
+- JavaScript: no activation needed
+- Both isolate project dependencies
+
+## Quick Reference
+
+| Concept | Python | JavaScript |
+|---------|--------|------------|
+| Import module | `import module` | `import * as module from 'module'` |
+| Import specific | `from module import func` | `import { func } from 'module'` |
+| Import alias | `import module as m` | `import { func as f } from 'module'` |
+| Export | Implicit | `export const func = () => {}` |
+| Default export | No default | `export default func` |
+| Package file | `__init__.py` | `index.js` |
+| Package manager | `pip`, `uv`, `poetry` | `npm`, `pnpm`, `yarn` |
+| Dependencies file | `requirements.txt` | `package.json` |
+| Virtual env | `venv` | `node_modules` |

@@ -1,0 +1,400 @@
+---
+title: Control Flow
+description: Conditionals, loops, and control structures in Python vs JavaScript.
+---
+
+## If Statements
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+age = 18
+
+if age >= 18:
+    print("Adult")
+elif age >= 13:
+    print("Teenager")
+else:
+    print("Child")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+const age = 18;
+
+if (age >= 18) {
+  console.log("Adult");
+} else if (age >= 13) {
+  console.log("Teenager");
+} else {
+  console.log("Child");
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `elif` (not `else if`)
+- Python: colon (`:`) after condition
+- Python: indentation (no curly braces or parentheses)
+
+## Ternary Expressions
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+age = 18
+status = "Adult" if age >= 18 else "Minor"
+
+# More complex
+result = "A" if score >= 90 else "B" if score >= 80 else "C"
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+const age = 18;
+const status = age >= 18 ? "Adult" : "Minor";
+
+// More complex
+const result = score >= 90 ? "A" : score >= 80 ? "B" : "C";
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `value_if_true if condition else value_if_false`
+- JavaScript: `condition ? value_if_true : value_if_false`
+- Python reads more like English
+
+## Logical Operators
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Logical operators
+is_adult = age >= 18 and has_id
+can_enter = is_member or is_guest
+is_locked = not is_open
+
+# Chaining comparisons
+if 0 <= score <= 100:
+    print("Valid score")
+
+# Identity operators
+if x is None:
+    print("No value")
+
+if x is not None:
+    print("Has value")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Logical operators
+const isAdult = age >= 18 && hasId;
+const canEnter = isMember || isGuest;
+const isLocked = !isOpen;
+
+// No comparison chaining
+if (score >= 0 && score <= 100) {
+  console.log("Valid score");
+}
+
+// Equality operators
+if (x === null) {
+  console.log("No value");
+}
+
+if (x !== null) {
+  console.log("Has value");
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `and`, `or`, `not` (words)
+- JavaScript: `&&`, `||`, `!` (symbols)
+- Python: `is` / `is not` for identity
+- JavaScript: `===` / `!==` for equality
+- Python supports chained comparisons
+
+## For Loops
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Iterate over list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# With index
+for i, fruit in enumerate(fruits):
+    print(f"{i}: {fruit}")
+
+# Range (like for loop counter)
+for i in range(5):      # 0 to 4
+    print(i)
+
+for i in range(2, 5):   # 2 to 4
+    print(i)
+
+for i in range(0, 10, 2):  # 0, 2, 4, 6, 8
+    print(i)
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Iterate over array
+const fruits = ["apple", "banana", "cherry"];
+for (const fruit of fruits) {
+  console.log(fruit);
+}
+
+// With index
+fruits.forEach((fruit, i) => {
+  console.log(`${i}: ${fruit}`);
+});
+
+// Traditional for loop
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+}
+
+// Range-like behavior
+for (let i = 2; i < 5; i++) {
+  console.log(i);
+}
+
+for (let i = 0; i < 10; i += 2) {
+  console.log(i);
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `for item in iterable`
+- JavaScript: `for (const item of iterable)`
+- Python: `range()` function for numeric sequences
+- JavaScript: traditional C-style for loop
+- Python: `enumerate()` for index access
+
+## While Loops
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# While with else (unique to Python)
+while count < 5:
+    print(count)
+    count += 1
+else:
+    print("Loop completed normally")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+let count = 0;
+while (count < 5) {
+  console.log(count);
+  count++;
+}
+
+// No while-else in JavaScript
+while (count < 5) {
+  console.log(count);
+  count++;
+}
+console.log("Loop completed");
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python has `while-else` (executes if loop completes without `break`)
+- JavaScript lacks `while-else` construct
+- Both use similar syntax otherwise
+
+## Break and Continue
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# Break
+for i in range(10):
+    if i == 5:
+        break
+    print(i)  # 0, 1, 2, 3, 4
+
+# Continue
+for i in range(5):
+    if i == 2:
+        continue
+    print(i)  # 0, 1, 3, 4
+
+# For-else (else runs if no break)
+for i in range(5):
+    if i == 10:
+        break
+else:
+    print("No break occurred")
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Break
+for (let i = 0; i < 10; i++) {
+  if (i === 5) break;
+  console.log(i);  // 0, 1, 2, 3, 4
+}
+
+// Continue
+for (let i = 0; i < 5; i++) {
+  if (i === 2) continue;
+  console.log(i);  // 0, 1, 3, 4
+}
+
+// No for-else in JavaScript
+let broke = false;
+for (let i = 0; i < 5; i++) {
+  if (i === 10) {
+    broke = true;
+    break;
+  }
+}
+if (!broke) {
+  console.log("No break occurred");
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Both have `break` and `continue`
+- Python has `for-else` and `while-else`
+- JavaScript lacks loop-else constructs
+
+## Match Statement (Python 3.10+) vs Switch
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+def http_status(status):
+    match status:
+        case 200:
+            return "OK"
+        case 404:
+            return "Not Found"
+        case 500 | 502 | 503:
+            return "Server Error"
+        case _:
+            return "Unknown"
+
+# Pattern matching with structure
+def process_point(point):
+    match point:
+        case (0, 0):
+            return "Origin"
+        case (x, 0):
+            return f"X-axis at {x}"
+        case (0, y):
+            return f"Y-axis at {y}"
+        case (x, y):
+            return f"Point at {x}, {y}"
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+function httpStatus(status) {
+  switch (status) {
+    case 200:
+      return "OK";
+    case 404:
+      return "Not Found";
+    case 500:
+    case 502:
+    case 503:
+      return "Server Error";
+    default:
+      return "Unknown";
+  }
+}
+
+// No pattern matching in JS
+function processPoint([x, y]) {
+  if (x === 0 && y === 0) return "Origin";
+  if (y === 0) return `X-axis at ${x}`;
+  if (x === 0) return `Y-axis at ${y}`;
+  return `Point at ${x}, ${y}`;
+}
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: `match-case` (3.10+) with pattern matching
+- JavaScript: `switch-case` (no pattern matching)
+- Python match is more powerful with destructuring
+- Python doesn't need `break` in match statements
+
+## List Comprehensions vs Map/Filter
+
+<Tabs items={['Python', 'JavaScript/TypeScript']}>
+<Tab value="Python">
+```python
+# List comprehension
+numbers = [1, 2, 3, 4, 5]
+squares = [x ** 2 for x in numbers]
+evens = [x for x in numbers if x % 2 == 0]
+
+# With condition
+result = [x * 2 if x % 2 == 0 else x for x in numbers]
+
+# Nested
+matrix = [[i * j for j in range(3)] for i in range(3)]
+```
+</Tab>
+<Tab value="JavaScript/TypeScript">
+```javascript
+// Array methods
+const numbers = [1, 2, 3, 4, 5];
+const squares = numbers.map(x => x ** 2);
+const evens = numbers.filter(x => x % 2 === 0);
+
+// Map with condition
+const result = numbers.map(x => x % 2 === 0 ? x * 2 : x);
+
+// Nested
+const matrix = Array(3).fill(0).map((_, i) =>
+  Array(3).fill(0).map((_, j) => i * j)
+);
+```
+</Tab>
+</Tabs>
+
+**Key Differences:**
+- Python: comprehensions (more concise)
+- JavaScript: `map()`, `filter()` methods
+- Python comprehensions can combine map and filter
+- Both approaches are functional
+
+## Quick Reference
+
+| Concept | Python | JavaScript/TypeScript |
+|---------|--------|---------------------|
+| If-else | `if:` `elif:` `else:` | `if ()` `else if ()` `else` |
+| Ternary | `x if cond else y` | `cond ? x : y` |
+| Logical AND | `and` | `&&` |
+| Logical OR | `or` | `\|\|` |
+| Logical NOT | `not` | `!` |
+| For loop | `for x in list:` | `for (const x of list)` |
+| Range | `range(10)` | Traditional for loop |
+| While loop | `while cond:` | `while (cond)` |
+| Switch | `match x:` `case y:` | `switch (x)` `case y:` |
