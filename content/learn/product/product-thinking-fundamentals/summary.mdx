@@ -1,0 +1,297 @@
+---
+title: Summary
+description: Putting it all together. From problem to shipped product.
+---
+
+You now know how to think like a product builder.
+
+Let's recap the framework and see it in action.
+
+## The product thinking framework
+
+### 1. Start with the problem
+
+**Ask**: What problem am I solving? For whom?
+
+**Validate**:
+- 5+ people with specific pain points
+- Evidence of current workarounds
+- Commitment signals (emails, beta requests)
+
+**Red flag**: If you can't describe the problem in one sentence, you don't understand it yet.
+
+### 2. Design the solution
+
+**Define**:
+- What success looks like
+- Multiple solution approaches
+- Your constraints (time, budget, skills)
+
+**Choose**: The simplest solution that solves the problem
+
+**Red flag**: If you can't sketch the solution on paper, you're not ready to code.
+
+### 3. Make smart decisions
+
+**For every feature**: Build, buy, or integrate?
+
+**Default**: Integrate (unless it's your core value)
+
+**Remember**: Your time is your most valuable resource
+
+**Red flag**: If you're building auth from scratch, you're doing it wrong.
+
+### 4. Set constraints
+
+**Define**:
+- Launch deadline
+- Maximum features (5 or less)
+- Tech stack (3-4 tools)
+- Target platform (one only)
+
+**Remember**: Constraints force better decisions
+
+**Red flag**: If you don't have a launch date, you'll never launch.
+
+### 5. Ship and learn
+
+**Launch**: When slightly embarrassed, not when perfect
+
+**Get feedback**: Watch users, don't just ask
+
+**Iterate**: Weekly sprints, not monthly plans
+
+**Red flag**: If you haven't launched in 4 weeks, your scope is too big.
+
+### 6. Measure what matters
+
+**Track**: Activation and retention
+
+**Ignore**: Vanity metrics
+
+**Act**: Build what metrics tell you to build
+
+**Red flag**: If metrics don't change your decisions, stop tracking them.
+
+## The framework in action
+
+Let's walk through a real example.
+
+### Example: Dev tool for API documentation
+
+#### 1. Problem (Week 0)
+
+**Initial idea**: "Build an API documentation generator"
+
+**Problem discovery**:
+- Talked to 10 frontend engineers
+- 7 said: "I spend hours writing integration docs"
+- 5 said: "Docs get outdated within days"
+- Current solution: Manual markdown files
+
+**Problem statement**:
+> Frontend engineers waste 2+ hours per integration writing API docs that become outdated within a week, leading to bugs and wasted team time.
+
+**Validation**: ✅ Real problem, frequent pain, active workarounds
+
+#### 2. Solution (Week 1)
+
+**Approaches considered**:
+1. AI that auto-generates docs
+2. Tool that syncs code → docs
+3. Interactive API playground
+4. Chrome extension for API testing
+
+**Chosen**: Tool that syncs code → docs (simplest, most direct)
+
+**MVP scope**:
+- Parse TypeScript API client
+- Generate markdown docs
+- One-click update
+
+**Not now**:
+- Multiple languages
+- Custom templates
+- Team features
+- Comments/discussions
+
+#### 3. Decisions (Week 1)
+
+**Build**:
+- Parser logic (core value)
+- Doc generator (core value)
+
+**Integrate**:
+- Authentication: Clerk
+- Hosting: Vercel
+- Database: Supabase
+- Markdown rendering: React Markdown
+
+**Tech stack**: Next.js, TypeScript, Clerk, Supabase
+
+#### 4. Constraints (Week 1)
+
+**Set**:
+- Launch: 3 weeks
+- Features: 3 (parse, generate, update)
+- Platform: Web only
+- Audience: Frontend engineers using TypeScript
+
+**Result**: Clear scope, no feature creep
+
+#### 5. Shipping (Week 3-4)
+
+**Week 3**: Built MVP, rough but working
+
+**Launch**:
+- Posted on Twitter
+- Posted on r/webdev
+- Messaged 10 engineers from interviews
+- Got 50 signups in 3 days
+
+**Feedback**:
+- "Love it, but needs GitHub integration"
+- "Works great for my team"
+- "Can it support Zod schemas?"
+
+#### 6. Measuring (Week 4-8)
+
+**Metrics**:
+- Signups: 150
+- Core action (generated docs): 80%
+- Day 7 return: 35%
+- Day 30 return: 20%
+
+**Decisions based on metrics**:
+- 80% activation → MVP works
+- 35% Day 7 → Good retention
+- Top request: GitHub integration → Built in Week 5
+
+**Result**: Product-market fit signals, sustainable growth
+
+## The pattern
+
+**Every successful product follows this pattern:**
+
+1. Clear problem
+2. Validated before building
+3. Simple first solution
+4. Smart integrations
+5. Tight constraints
+6. Fast shipping
+7. Metric-driven iteration
+
+**No shortcuts.** Each step matters.
+
+## For your next project
+
+### The checklist
+
+Before writing code:
+
+✅ I can describe the problem in one sentence
+✅ I've talked to 5+ people who have this problem
+✅ I've validated they'd use a solution
+✅ I've defined my MVP (5 features max)
+✅ I've set a launch deadline
+✅ I know what I'm building vs integrating
+✅ I can sketch the solution on paper
+
+If any are unchecked, do that first.
+
+### The mindset shift
+
+**Old thinking**:
+- "I'll build with the coolest tech"
+- "I'll add features until it's perfect"
+- "I'll launch when ready"
+- "I'll see if people like it"
+
+**New thinking**:
+- "I'll use boring tech that works"
+- "I'll ship the minimum that solves the problem"
+- "I'll launch in 3 weeks no matter what"
+- "I'll measure if it solves the problem"
+
+This is product thinking.
+
+## Beyond the framework
+
+This course taught you:
+- How to identify problems
+- How to validate before building
+- How to make product decisions
+- How to ship and iterate
+
+**But learning doesn't end here.**
+
+Keep:
+- Shipping projects
+- Talking to users
+- Measuring what matters
+- Iterating based on feedback
+
+**Every project teaches you more than any course can.**
+
+## Common pitfalls (avoid these)
+
+1. **Skipping validation**: "I'll build it and see if people want it"
+   - Wastes weeks/months
+   - High failure rate
+
+2. **Building too much**: "Just one more feature..."
+   - Never ships
+   - Scope creep kills projects
+
+3. **Ignoring feedback**: "But I like this feature"
+   - Product for you, not users
+   - Recipe for failure
+
+4. **Analysis paralysis**: "Let me research more..."
+   - Infinite research, zero shipping
+   - Ship and learn faster
+
+5. **Tech stack obsession**: "Which framework is best?"
+   - Doesn't matter as much as you think
+   - Pick one, move on
+
+## Final thoughts
+
+As a frontend engineer, you have a superpower: **you can build interfaces people use.**
+
+But the best engineers don't just build. They think:
+- Why are we building this?
+- What problem does it solve?
+- Is there a simpler way?
+- How will we know if it works?
+
+This course taught you to ask these questions.
+
+**Now go build something that matters.**
+
+---
+
+## What's next?
+
+### Keep building
+- Ship a project using this framework
+- Share your progress
+- Learn from real users
+
+### Keep learning
+- Read "The Mom Test" by Rob Fitzpatrick
+- Follow makers building in public
+- Join communities (Indie Hackers, Twitter)
+
+### Keep thinking
+- Apply this to your day job
+- Question every feature request
+- Measure what matters
+
+**Product thinking is a skill.** Like coding, it improves with practice.
+
+The difference? This skill tells you **what** to code.
+
+---
+
+**You're ready. Start with a problem. Ship a solution.**
