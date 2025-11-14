@@ -1,11 +1,10 @@
-import { baseOptions } from '@/app/layout.config';
+import { baseOptions } from '@/lib/layout.shared';
 import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import Link from 'next/link';
-import type { ReactNode } from 'react';
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <HomeLayout {...baseOptions}>
+    <HomeLayout {...baseOptions()}>
       {children}
       <footer className="container mx-auto px-4 py-2 text-center text-sm">
         <span className="text-muted-foreground text-sm">

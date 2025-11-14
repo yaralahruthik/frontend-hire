@@ -1,11 +1,16 @@
 import { blog } from '@/lib/source';
+import { PathUtils } from 'fumadocs-core/source';
 import Link from 'next/link';
+
+function getName(path: string) {
+  return PathUtils.basename(path, PathUtils.extname(path));
+}
 
 export default function Page(): React.ReactElement {
   const posts = [...blog.getPages()].sort(
     (a, b) =>
-      new Date(b.data.date ?? b.file.name).getTime() -
-      new Date(a.data.date ?? a.file.name).getTime(),
+      new Date(b.data.date ?? getName(b.path)).getTime() -
+      new Date(a.data.date ?? getName(a.path)).getTime(),
   );
 
   return (
@@ -31,7 +36,7 @@ export default function Page(): React.ReactElement {
             </p>
 
             <p className="text-fd-muted-foreground mt-auto pt-4 text-xs">
-              {new Date(post.data.date ?? post.file.name).toDateString()}
+              {new Date(post.data.date ?? getName(post.path)).toDateString()}
             </p>
           </Link>
         ))}

@@ -1,3 +1,4 @@
+import { Page } from 'fumadocs-core/source';
 import type { Metadata } from 'next/types';
 
 export function createMetadata(override: Metadata): Metadata {
@@ -19,6 +20,15 @@ export function createMetadata(override: Metadata): Metadata {
       images: '/banner.png',
       ...override.twitter,
     },
+  };
+}
+
+export function getPageImage(page: Page) {
+  const segments = [...page.slugs, 'image.webp'];
+
+  return {
+    segments,
+    url: `/og/${segments.join('/')}`,
   };
 }
 

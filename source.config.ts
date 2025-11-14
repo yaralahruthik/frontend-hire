@@ -1,5 +1,5 @@
-import { AUTHORS } from '@/authors';
 import {
+  defineCollections,
   defineConfig,
   defineDocs,
   frontmatterSchema,
@@ -7,11 +7,16 @@ import {
 } from 'fumadocs-mdx/config';
 import { z } from 'zod';
 
-const authorEnum = z.enum(Object.keys(AUTHORS) as [keyof typeof AUTHORS]);
-
-// Options: https://fumadocs.vercel.app/docs/mdx/collections#define-docs
+// You can customise Zod schemas for frontmatter and `meta.json` here
+// see https://fumadocs.dev/docs/mdx/collections
 export const docs = defineDocs({
   dir: 'content/learn',
+  docs: {
+    schema: frontmatterSchema,
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
   meta: {
     schema: metaSchema.extend({
       isNew: z.boolean().optional(),
@@ -19,15 +24,14 @@ export const docs = defineDocs({
   },
 });
 
-export const blog = defineDocs({
+export const blog = defineCollections({
+  type: 'doc',
   dir: 'content/blog',
-  docs: {
-    schema: frontmatterSchema.extend({
-      author: authorEnum,
-      date: z.string().date().or(z.date()).optional(),
-      category: z.enum(['open-house']).optional(),
-    }),
-  },
+  schema: frontmatterSchema.extend({
+    author: z.string(),
+    date: z.iso.date().or(z.date()),
+    category: z.string().optional(),
+  }),
 });
 
 export default defineConfig({
