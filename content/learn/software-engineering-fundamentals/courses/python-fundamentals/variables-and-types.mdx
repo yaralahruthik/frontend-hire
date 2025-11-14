@@ -1,0 +1,188 @@
+---
+title: Variables and Types
+description: Understanding Python's type system compared to JavaScript/TypeScript.
+---
+
+## Variables
+
+Python uses simple assignment without keywords like `let`, `const`, or `var`.
+
+```python tab="Python"
+name = "John"
+age = 30
+is_active = True
+```
+
+```javascript tab="JavaScript"
+const name = "John";
+const age = 30;
+const isActive = true;
+```
+
+```typescript tab="TypeScript"
+const name: string = "John";
+const age: number = 30;
+const isActive: boolean = true;
+```
+
+**Key Differences:**
+- Python uses `snake_case` for variables (not `camelCase`)
+- No `const`, `let`, or `var` keywords
+- `True` and `False` are capitalized in Python
+- Python is dynamically typed by default (like JavaScript)
+
+## Basic Types
+
+### Strings
+
+```python tab="Python"
+single = 'Hello'
+double = "World"
+multiline = """This is
+a multiline string"""
+f_string = f"My name is {name}"
+```
+
+```javascript tab="JavaScript/TypeScript"
+const single = 'Hello';
+const double = "World";
+const multiline = `This is
+a multiline string`;
+const template = `My name is ${name}`;
+```
+
+**Key Differences:**
+- Python uses `f-strings` (prefix with `f`) for string interpolation
+- Triple quotes (`"""` or `'''`) for multiline strings
+- Both single and double quotes work identically in Python
+
+### Numbers
+
+```python tab="Python"
+integer = 42
+float_num = 3.14
+complex_num = 3 + 4j
+
+# Type conversion
+result = float(integer)  # 42.0
+whole = int(float_num)   # 3
+```
+
+```javascript tab="JavaScript/TypeScript"
+const integer = 42;
+const floatNum = 3.14;
+// No native complex numbers
+
+// Type conversion
+const result = Number(integer);
+const whole = parseInt(floatNum);
+```
+
+**Key Differences:**
+- Python has native complex numbers
+- Python distinguishes between `int` and `float`
+- JavaScript has only `Number` type (all are floating-point)
+
+### Booleans
+
+```python tab="Python"
+is_true = True
+is_false = False
+
+# Falsy values in Python
+bool(None)     # False
+bool(0)        # False
+bool("")       # False
+bool([])       # False
+bool({})       # False
+```
+
+```javascript tab="JavaScript/TypeScript"
+const isTrue = true;
+const isFalse = false;
+
+// Falsy values in JavaScript
+Boolean(null);       // false
+Boolean(undefined);  // false
+Boolean(0);          // false
+Boolean("");         // false
+Boolean([]);         // true (different!)
+Boolean({});         // true (different!)
+```
+
+**Key Differences:**
+- Python: `True`, `False`, `None` (capitalized)
+- JavaScript: `true`, `false`, `null`, `undefined` (lowercase)
+- Empty arrays/objects are truthy in JS, falsy in Python
+
+## Type Checking
+
+```python tab="Python"
+age = 30
+print(type(age))  # <class 'int'>
+
+# Runtime type checking
+isinstance(age, int)    # True
+isinstance(age, str)    # False
+
+# Type hints (optional, like TypeScript)
+def greet(name: str) -> str:
+    return f"Hello, {name}"
+```
+
+```typescript tab="TypeScript"
+const age = 30;
+console.log(typeof age);  // "number"
+
+// Compile-time type checking
+function greet(name: string): string {
+  return `Hello, ${name}`;
+}
+```
+
+**Key Differences:**
+- Python: `type()` function, runtime checking
+- TypeScript: `typeof` operator, compile-time checking
+- Python type hints are optional and not enforced at runtime (unless using tools like mypy)
+
+## None vs null/undefined
+
+```python tab="Python"
+value = None
+
+if value is None:
+    print("No value")
+
+# Check for None
+value is None      # Use 'is'
+value is not None  # Use 'is not'
+```
+
+```javascript tab="JavaScript/TypeScript"
+let value = null;
+
+if (value === null) {
+  console.log("No value");
+}
+
+// Check for null/undefined
+value === null
+value !== null
+value === undefined
+```
+
+**Key Differences:**
+- Python has only `None` (not both `null` and `undefined`)
+- Use `is None` not `== None` in Python
+- `None` is a singleton object in Python
+
+## Quick Reference
+
+| Concept | Python | JavaScript/TypeScript |
+|---------|--------|---------------------|
+| Variable declaration | `x = 5` | `const x = 5` |
+| String interpolation | `f"Hello {name}"` | `` `Hello ${name}` `` |
+| Null value | `None` | `null` / `undefined` |
+| Boolean | `True` / `False` | `true` / `false` |
+| Type checking | `isinstance(x, int)` | `typeof x === 'number'` |
+| Naming convention | `snake_case` | `camelCase` |
