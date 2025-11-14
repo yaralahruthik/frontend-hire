@@ -5,6 +5,7 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
+  serverExternalPackages: ['typescript', 'shiki', '@takumi-rs/image-response'],
 };
 
 export default withMDX(config);
