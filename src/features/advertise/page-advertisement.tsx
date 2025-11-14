@@ -16,7 +16,7 @@ export default function PageAdvertisement({
       <Callout
         id="fh-advertisement"
         icon={<MegaphoneIcon />}
-        className="relative w-full border-s-fuchsia-500/90"
+        className="relative w-full"
         title="Promote your product or service here"
       >
         <p>
