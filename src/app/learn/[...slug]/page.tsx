@@ -1,6 +1,7 @@
 import { ADVERTISEMENTS, ContentOverviewKeyType } from '@/advertisements';
 import GFEAdvertisement from '@/features/advertise/gfe-advertisement';
 import PageAdvertisement from '@/features/advertise/page-advertisement';
+import { createMetadata } from '@/lib/metadata';
 import { getPageImage, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 import { getGithubLastEdit } from 'fumadocs-core/content/github';
@@ -14,7 +15,7 @@ import {
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-export default async function Page(props: PageProps<'/learn/[[...slug]]'>) {
+export default async function Page(props: PageProps<'/learn/[...slug]'>) {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();
@@ -67,17 +68,32 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: PageProps<'/learn/[[...slug]]'>,
+  props: PageProps<'/learn/[...slug]'>,
 ): Promise<Metadata> {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
-  if (!page) notFound();
+  const { slug = [] } = await props.params;
+  const page = source.getPage(slug);
+  if (!page)
+    return createMetadata({
+      title: 'Not Found',
+    });
 
-  return {
-    title: page.data.title,
-    description: page.data.description,
-    openGraph: {
-      images: getPageImage(page).url,
-    },
+  const description = page.data.description;
+
+  const image = {
+    url: getPageImage(page).url,
+    width: 1200,
+    height: 630,
   };
+
+  return createMetadata({
+    title: page.data.title,
+    description,
+    openGraph: {
+      url: `/learn/${page.slugs.join('/')}`,
+      images: [image],
+    },
+    twitter: {
+      images: [image],
+    },
+  });
 }
