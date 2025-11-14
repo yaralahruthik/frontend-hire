@@ -73,11 +73,9 @@ test.describe('Login Flow', () => {
 In this test, we:
 
 1. Navigate to the home page.
-
    - We are using the [`page.goto`](https://playwright.dev/docs/writing-tests#navigation) function to navigate to the home page.
 
 2. Click on the login link.
-
    - We are using the [`page.getByRole`](https://playwright.dev/docs/locators#locate-by-role) function to get the login link and then click on it.
 
 3. Assert that the URL should be `http://localhost:3000/login`.
@@ -149,15 +147,12 @@ test.describe('Login Flow', () => {
 In this test, we:
 
 1. Navigate to the login page.
-
    - Here, we are navigating to the login page directly.
 
 2. Fill the email and password.
-
    - We are using the [`page.getByLabel`](https://playwright.dev/docs/api/class-locator#locator-get-by-label) function to get the email and password fields and then fill them with the test data.
 
 3. Click on the login button.
-
    - We are using the [`page.getByRole`](https://playwright.dev/docs/api/class-locator#locator-get-by-role) function to get the login button and then click on it.
 
 4. Assert that the URL should be `http://localhost:3000/dashboard`.
@@ -211,11 +206,9 @@ test.describe('Login Flow', () => {
 In this test, we:
 
 1. Navigate to the login page.
-
    - We are navigating to the login page directly.
 
 2. Fill the email and password.
-
    - We use the same test data for the email but an invalid password.
 
 3. Click on the login button.
@@ -281,7 +274,6 @@ test.describe('Login Flow', () => {
 In this test, we:
 
 1. Navigate to the dashboard page directly.
-
    - We are navigating to the dashboard page directly.
 
 2. Assert that the URL should be `http://localhost:3000/login`.

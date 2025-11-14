@@ -4,19 +4,19 @@ import { blog, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import path from 'node:path';
 import { Control } from './page.client';
 
-export default async function Page(props: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function Page(props: PageProps<'/blog/[slug]'>) {
   const params = await props.params;
   const page = blog.getPage([params.slug]);
 
   if (!page) notFound();
   const { toc, body: MDX } = page.data;
 
-  const authorKey = page.data.author;
+  const authorKey = page.data.author as 'yhr';
   const author = AUTHORS[authorKey];
 
   return (
@@ -120,7 +120,10 @@ export default async function Page(props: {
           <div>
             <p className="text-fd-muted-foreground mb-1 text-sm">At</p>
             <p className="font-medium">
-              {new Date(page.data.date ?? page.file.name).toDateString()}
+              {new Date(
+                page.data.date ??
+                  path.basename(page.path, path.extname(page.path)),
+              ).toDateString()}
             </p>
           </div>
           <Control url={page.url} />
@@ -130,27 +133,17 @@ export default async function Page(props: {
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const page = blog.getPage([slug]);
+export async function generateMetadata(
+  props: PageProps<'/blog/[slug]'>,
+): Promise<Metadata> {
+  const params = await props.params;
+  const page = blog.getPage([params.slug]);
 
   if (!page) notFound();
 
-  const image = ['/blog-og', slug, 'image.png'].join('/');
   return createMetadata({
     title: page.data.title,
     description: page.data.description,
-    openGraph: {
-      images: image,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      images: image,
-    },
   });
 }
 

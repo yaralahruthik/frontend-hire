@@ -1,10 +1,9 @@
 import { ADVERTISEMENTS, ContentOverviewKeyType } from '@/advertisements';
 import GFEAdvertisement from '@/features/advertise/gfe-advertisement';
 import PageAdvertisement from '@/features/advertise/page-advertisement';
-import { createMetadata } from '@/lib/metadata';
-import { source } from '@/lib/source';
+import { getPageImage, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
-import { getGithubLastEdit } from 'fumadocs-core/server';
+import { getGithubLastEdit } from 'fumadocs-core/content/github';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -12,28 +11,26 @@ import {
   DocsPage,
   DocsTitle,
 } from 'fumadocs-ui/page';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-export default async function Page(props: {
-  params: Promise<{ slug?: string[] }>;
-}) {
+export default async function Page(props: PageProps<'/learn/[[...slug]]'>) {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  const MDXContent = page.data.body;
+  const MDX = page.data.body;
+  const isQuestionsPage = page.slugs.includes('questions');
+  const isOverviewPage = page.slugs.at(-1) === 'overview';
+  const advertisementKey = page.slugs.join('-') as ContentOverviewKeyType;
   const time =
     process.env.NODE_ENV === 'production'
       ? await getGithubLastEdit({
           owner: 'yaralahruthik',
           repo: 'frontend-hire',
-          path: `content/learn/${page.file.path}`,
+          path: `content/learn/${page.path}`,
         })
       : null;
-
-  const isQuestionsPage = page.slugs.includes('questions');
-  const isOverviewPage = page.slugs.at(-1) === 'overview';
-  const advertisementKey = page.slugs.join('-') as ContentOverviewKeyType;
 
   return (
     <DocsPage
@@ -44,10 +41,9 @@ export default async function Page(props: {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
-        {isQuestionsPage && <GFEAdvertisement />}
-
-        <MDXContent
+        <MDX
           components={getMDXComponents({
+            // this allows you to link to other pages with relative file paths
             a: createRelativeLink(source, page),
           })}
         />
@@ -70,21 +66,18 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug?: string[] }>;
-}) {
-  const { slug = [] } = await params;
-  const page = source.getPage(slug);
+export async function generateMetadata(
+  props: PageProps<'/learn/[[...slug]]'>,
+): Promise<Metadata> {
+  const params = await props.params;
+  const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  const image = ['/docs-og', ...slug, 'image.png'].join('/');
-
-  return createMetadata({
+  return {
     title: page.data.title,
     description: page.data.description,
-    openGraph: { images: image },
-    twitter: { card: 'summary_large_image', images: image },
-  });
+    openGraph: {
+      images: getPageImage(page).url,
+    },
+  };
 }
