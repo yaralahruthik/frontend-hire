@@ -1,0 +1,195 @@
+---
+title: From Problem to Solution
+description: Bridge the gap between problem and implementation systematically
+---
+
+You validated the problem. Now what?
+
+Don't jump to code. Design the solution.
+
+## The gap between problem and code
+
+**Problem**: "Frontend engineers waste hours updating component docs"
+
+**Bad next step**: Open VSCode, `npx create-next-app`
+
+**Good next step**: Define what "solving this" actually means
+
+## Solution design framework
+
+### 1. Define success
+
+What does success look like?
+
+**Vague**: "Better documentation"
+**Specific**: "Docs update automatically when components change, reducing manual work to under 10 minutes per week"
+
+### 2. List solution approaches
+
+For any problem, there are multiple solutions.
+
+**Example problem**: "Track product metrics across tools"
+
+**Solution approaches:**
+1. Build a custom dashboard
+2. Use existing tool (Mixpanel, Amplitude)
+3. Create a script that exports to spreadsheet
+4. Pay for a data warehouse
+5. Manually compile a weekly report
+
+Don't commit yet. List options.
+
+### 3. Define constraints
+
+What are your limits?
+
+**Time**: How long can you spend?
+**Money**: What's your budget?
+**Skills**: What can you actually build?
+**Scope**: Solving for 1 person or 1000?
+
+Constraints aren't bad—they force good decisions.
+
+### 4. Choose the simplest solution
+
+The best solution is the one that:
+- Solves the problem
+- Uses the least resources
+- Ships the fastest
+
+**Over-engineered**: Microservices, GraphQL, real-time updates, AI recommendations
+**Right-sized**: Static site, manual updates, CSV export
+
+Start simple. Complexity can come later.
+
+## The MVP trap
+
+"MVP" doesn't mean "bad version of full product."
+
+It means: **Minimum version that validates you solved the problem.**
+
+### What to include
+
+Ask: "Without this, does it still solve the problem?"
+
+**Problem**: "Designers need to share prototypes quickly"
+
+**Included**: Upload designs, generate shareable link
+**Excluded**: Comments, version history, team management, analytics
+
+Comments are nice. But shareable links solve the problem.
+
+### How to cut scope
+
+Use the **"Not now"** rule:
+
+- Authentication? Not now. (Use magic links)
+- Team features? Not now. (Single user)
+- Mobile app? Not now. (Web only)
+- Dark mode? Not now. (Light mode)
+
+"Not now" isn't "never." It's "later, if needed."
+
+## Solution validation
+
+Before building, validate the solution approach:
+
+### 1. Write the user flow
+
+Step by step, what does the user do?
+
+```
+1. User visits site
+2. Clicks "Upload"
+3. Selects file
+4. Gets shareable link
+5. Copies link
+6. Shares with client
+```
+
+If the flow has 15 steps, simplify.
+
+### 2. Sketch the UI (no code)
+
+Use Excalidraw, Figma, or paper.
+
+Does the interface make sense? Can you explain it in 30 seconds?
+
+If you can't sketch it simply, you can't build it simply.
+
+### 3. Get feedback on the approach
+
+Show your sketch to someone with the problem:
+
+"If this existed, would it solve your problem?"
+
+If they ask for 10 more features, your MVP might be off. If they say "yes, exactly," build it.
+
+## The "No Code" test
+
+Can you validate the solution without code?
+
+**Example: Analytics dashboard**
+- Manual version: Send weekly email with screenshots
+- If they don't use emails, they won't use dashboard
+
+**Example: Chrome extension**
+- Manual version: Bookmarklet or copy-paste script
+- If nobody uses bookmarklet, extension won't help
+
+Validate usage patterns before building infrastructure.
+
+## When to use existing tools vs build
+
+Ask:
+- **Does a solution exist?** → Try it first
+- **Is it 80% what you need?** → Use it
+- **Is it 40% what you need?** → Maybe customize
+- **Is it 0% what you need?** → Build
+
+Building from scratch should be the last option, not the first.
+
+## For frontend engineers: Feature design
+
+When your PM says "Add a notification system":
+
+1. **Problem**: Why do users need notifications?
+2. **Success**: What does "working notifications" mean?
+3. **Approaches**: Email? In-app? Push? All three?
+4. **Constraints**: Time? Team size? Infrastructure?
+5. **MVP**: Simplest version that solves the problem
+
+Don't start with "I'll use Socket.io and Redis."
+
+Start with "Do they need real-time, or will daily emails work?"
+
+## The solution document
+
+Before coding, write:
+
+```
+Problem: [One sentence]
+Success criteria: [What changes when this works?]
+Approach: [High-level solution]
+MVP scope: [What's included]
+Not now: [What's excluded]
+User flow: [Step by step]
+```
+
+This takes 30 minutes. Saves 30 hours.
+
+## Decision checklist
+
+Before building:
+
+✅ Solution solves the validated problem
+✅ MVP scope is clear
+✅ You can explain the approach in under 2 minutes
+✅ User flow is under 7 steps
+✅ Someone with the problem confirmed this would help
+
+If any are missing, you're not ready to code.
+
+---
+
+Next: How do you decide between building, buying, or integrating?

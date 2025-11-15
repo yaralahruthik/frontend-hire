@@ -1,0 +1,250 @@
+---
+title: Build vs Buy vs Integrate
+description: The most important decision you'll make. Choose wrong and waste months.
+---
+
+You have a solution. Now decide: build it, buy it, or integrate it?
+
+This decision determines your timeline, costs, and maintenance burden.
+
+## The three options
+
+### Build
+
+Write it yourself from scratch.
+
+**Best when:**
+- Core to your product's value
+- No good alternatives exist
+- You need full control
+- It's genuinely simple
+
+**Costs:**
+- Development time
+- Testing time
+- Maintenance forever
+- Bug fixes forever
+
+### Buy
+
+Use an existing tool or service.
+
+**Best when:**
+- Not your core value
+- Good solutions exist
+- You lack expertise
+- Time matters more than money
+
+**Costs:**
+- Subscription fees
+- Lock-in risk
+- Less customization
+- Potential feature gaps
+
+### Integrate
+
+Use APIs, libraries, or platforms.
+
+**Best when:**
+- Commodity functionality
+- Well-documented APIs
+- Standard use cases
+- Want to ship fast
+
+**Costs:**
+- API limits
+- Third-party dependencies
+- Breaking changes
+- Support gaps
+
+## The decision framework
+
+### 1. Is it your core value?
+
+**Core value**: The thing that makes your product unique
+
+**Example**: Building Figma
+- Design canvas: **Build** (this is your product)
+- Authentication: **Buy/Integrate** (Clerk, Auth0)
+- Payments: **Integrate** (Stripe)
+- Email: **Integrate** (Resend, SendGrid)
+
+If you're building it because "it's fun" or "to learn," that's a hobby project. For products, build only what differentiates you.
+
+### 2. What's the quality bar?
+
+**Low bar**: Basic functionality, good enough
+→ Use existing tools
+
+**High bar**: Pixel-perfect, custom behavior
+→ Build or heavily customize
+
+Most features need "good enough." Save "perfect" for core value.
+
+### 3. What's your time budget?
+
+Building takes 3-10x longer than you think.
+
+**Building auth**:
+- Week 1: Login/signup
+- Week 2: Password reset, email verification
+- Week 3: OAuth providers
+- Week 4: Security hardening
+- Week 5: Session management
+- Week 6: Bug fixes
+
+**Using Clerk/Auth0**:
+- Day 1: Integration done
+
+Time is your most valuable resource. Spend it on what matters.
+
+### 4. Can you maintain it?
+
+Code you write is code you maintain.
+
+**Questions:**
+- Will you fix bugs in 6 months?
+- Can you handle security patches?
+- Will you support users hitting edge cases?
+
+If no, don't build it.
+
+## Real-world examples
+
+### Example 1: Analytics
+
+**Problem**: Track user behavior
+
+**Options:**
+- Build: Custom events, database, dashboard
+- Buy: Amplitude, Mixpanel ($50+/month)
+- Integrate: PostHog (self-hosted), Plausible
+
+**Decision:**
+- Early stage? **Integrate** (PostHog free tier)
+- Need custom events? **Integrate** (Amplitude)
+- Privacy-first? **Integrate** (Plausible)
+- Never build: Not your core value
+
+### Example 2: File uploads
+
+**Problem**: Users need to upload images
+
+**Options:**
+- Build: Handle uploads, storage, CDN, thumbnails
+- Buy: Cloudinary ($0-$99/month)
+- Integrate: Uploadthing, S3 + CloudFront
+
+**Decision:**
+- Need transformations? **Buy** (Cloudinary)
+- Simple storage? **Integrate** (S3)
+- Only build if files are your product (like Dropbox)
+
+### Example 3: Real-time features
+
+**Problem**: Users need live updates
+
+**Options:**
+- Build: WebSockets, scaling, reconnection logic
+- Buy: Pusher, Ably ($0-$49/month)
+- Integrate: Supabase Realtime, Firebase
+
+**Decision:**
+- Standard use case? **Integrate** (Supabase)
+- Need reliability? **Buy** (Pusher)
+- Only build if real-time is your core feature (like Figma)
+
+## The "Boring Technology" principle
+
+Use boring, proven solutions for non-core features.
+
+**Boring (good)**:
+- PostgreSQL over custom database
+- REST over custom protocol
+- Email over building notification system
+- Stripe over custom payments
+
+**Exciting (risky)**:
+- GraphQL federation
+- Custom state management
+- Blockchain integration
+- Novel architecture
+
+Excitement is expensive. Boring ships.
+
+## When building makes sense
+
+Build when:
+
+1. **It's genuinely simple**
+   - "Display a list" → Build
+   - "Real-time collaborative editing" → Don't build
+
+2. **It's your differentiator**
+   - Notion's editor → Built
+   - Notion's auth → Integrated
+
+3. **No alternatives exist**
+   - Rare, but happens
+   - Verify by searching GitHub, NPM, Google
+
+4. **Cost of buying exceeds building**
+   - $500/month for feature you can build in a week
+   - Do the math on maintenance costs
+
+## The integration checklist
+
+Before integrating, verify:
+
+✅ Documentation is clear
+✅ API is stable (not beta)
+✅ Rate limits work for you
+✅ Pricing scales with usage
+✅ Support exists (community or paid)
+✅ Company seems stable (funding, age)
+
+## For frontend engineers
+
+### Technical decisions are product decisions
+
+**Scenario**: Your app needs state management
+
+**Bad thinking**: "Redux vs Zustand vs Jotai?"
+
+**Good thinking**:
+- What problem am I solving?
+- Is global state even needed?
+- Can URL state work?
+- Can React Context work?
+
+Choose the simplest solution, not the most interesting.
+
+### Component libraries
+
+**Don't build**: Unless you're making a design system product
+**Do use**: Shadcn, Radix, Mantine, Chakra
+
+Your users don't care if you built the button. They care if the button works.
+
+## The decision process
+
+For every feature:
+
+1. Can I integrate? (Check NPM, GitHub, SaaS tools)
+2. Does it solve 80% of my need? → Integrate
+3. Is it core to my product? → Maybe build
+4. Can I maintain it? → If no, don't build
+5. What's the time difference? → If 10x, integrate
+
+Default to integrating. Build only when necessary.
+
+## Common mistakes
+
+1. **Building for learning**: Side projects, fine. Products, no.
+2. **NIH syndrome**: "Not invented here" → Expensive ego trip
+3. **Underestimating maintenance**: Building is 20%, maintaining is 80%
+4. **Overestimating lock-in**: Switching costs are lower than building costs
+
+---
+
+Next: How constraints shape better products.
