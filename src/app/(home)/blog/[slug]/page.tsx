@@ -1,11 +1,15 @@
 import { AUTHORS } from '@/authors';
+import {
+  findClosestRoute,
+  getPagesAsPaths,
+} from '@/lib/fuzzy-route-matcher';
 import { createMetadata } from '@/lib/metadata';
 import { blog, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
 import { InlineTOC } from 'fumadocs-ui/components/inline-toc';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import path from 'node:path';
 import { Control } from './page.client';
 
@@ -13,7 +17,24 @@ export default async function Page(props: PageProps<'/blog/[slug]'>) {
   const params = await props.params;
   const page = blog.getPage([params.slug]);
 
-  if (!page) notFound();
+  // If exact match not found, try fuzzy matching
+  if (!page) {
+    const attemptedPath = `/blog/${params.slug}`;
+    const allPages = blog.getPages();
+    const allPaths = getPagesAsPaths(allPages, '/blog');
+
+    const closestMatch = findClosestRoute(attemptedPath, allPaths, {
+      threshold: 0.4, // Adjust threshold as needed (0.0 = exact, 1.0 = anything)
+    });
+
+    if (closestMatch) {
+      // Redirect to the closest matching page
+      redirect(closestMatch);
+    }
+
+    // No good match found, show 404
+    notFound();
+  }
   const { toc, body: MDX } = page.data;
 
   const authorKey = page.data.author as 'yhr';

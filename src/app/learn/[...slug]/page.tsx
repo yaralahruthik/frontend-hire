@@ -1,6 +1,10 @@
 import { ADVERTISEMENTS, ContentOverviewKeyType } from '@/advertisements';
 import GFEAdvertisement from '@/features/advertise/gfe-advertisement';
 import PageAdvertisement from '@/features/advertise/page-advertisement';
+import {
+  findClosestRoute,
+  getPagesAsPaths,
+} from '@/lib/fuzzy-route-matcher';
 import { createMetadata } from '@/lib/metadata';
 import { getPageImage, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
@@ -13,12 +17,30 @@ import {
   DocsTitle,
 } from 'fumadocs-ui/page';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export default async function Page(props: PageProps<'/learn/[...slug]'>) {
   const params = await props.params;
   const page = source.getPage(params.slug);
-  if (!page) notFound();
+
+  // If exact match not found, try fuzzy matching
+  if (!page) {
+    const attemptedPath = `/learn/${params.slug.join('/')}`;
+    const allPages = source.getPages();
+    const allPaths = getPagesAsPaths(allPages, '/learn');
+
+    const closestMatch = findClosestRoute(attemptedPath, allPaths, {
+      threshold: 0.4, // Adjust threshold as needed (0.0 = exact, 1.0 = anything)
+    });
+
+    if (closestMatch) {
+      // Redirect to the closest matching page
+      redirect(closestMatch);
+    }
+
+    // No good match found, show 404
+    notFound();
+  }
 
   const MDX = page.data.body;
   const isQuestionsPage = page.slugs.includes('questions');
