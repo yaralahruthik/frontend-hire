@@ -1,0 +1,162 @@
+---
+title: Validating Problems, Not Solutions
+description: Test assumptions before writing code. Save weeks of wasted work.
+---
+
+You have a problem. Now prove it's worth solving.
+
+Don't build to find out. Validate first.
+
+## Why validation matters
+
+You can build a perfect product that nobody wants. Perfect code, clean architecture, great UX—all useless if you're solving the wrong problem.
+
+Validation answers:
+- Is this problem real?
+- Do people care enough?
+- Will they change their behavior?
+
+## What to validate
+
+### 1. Problem existence
+
+Does this problem actually exist?
+
+**Don't ask**: "Would you use a tool that..."
+**Do ask**: "Tell me about the last time you struggled with X"
+
+If they can't recall a recent, specific instance, the problem isn't painful enough.
+
+### 2. Problem frequency
+
+How often does this happen?
+
+**One-time pain**: Not worth solving
+**Weekly pain**: Maybe worth solving
+**Daily pain**: Worth solving
+
+### 3. Current solutions
+
+What do people do now?
+
+If they're:
+- **Doing nothing**: The pain isn't strong enough
+- **Using workarounds**: Good sign—they want it solved
+- **Paying for solutions**: Great sign—validated demand
+
+## Validation methods (without coding)
+
+### 1. Problem interviews
+
+Talk to 5-10 people who might have this problem.
+
+**Good questions:**
+- "Walk me through how you currently do X"
+- "What's frustrating about that process?"
+- "What have you tried to fix this?"
+- "How much time does this waste?"
+
+**Bad questions:**
+- "Would you use my solution?"
+- "What features would you want?"
+- "Does this sound useful?"
+
+Listen for stories, not opinions.
+
+### 2. Landing page test
+
+Build a simple page explaining the problem and solution. Track:
+- Email signups
+- Click-through rates
+- Time on page
+
+No backend needed. Just:
+```html
+Problem headline
+Brief explanation
+Email signup form
+```
+
+If you can't get 50 signups from friends/Twitter/Reddit, the problem isn't compelling.
+
+### 3. Manual MVP
+
+Solve the problem manually before automating.
+
+**Example**: Before building a screenshot tool, offer to take screenshots for people yourself. See if they actually use them.
+
+**Example**: Before building a dashboard, send weekly email summaries. If nobody opens them, why build the dashboard?
+
+This validates usage, not interest.
+
+### 4. Content validation
+
+Write about the problem. Post on Twitter, dev.to, Reddit, forums.
+
+If nobody engages, nobody cares.
+
+## How much validation is enough?
+
+**Minimum:**
+- 5 problem interviews with clear pain points
+- Evidence of current workarounds
+- Some signal people would pay (time or money)
+
+**Red flags to stop:**
+- People say "that's nice" but can't describe the pain
+- No one has looked for solutions
+- Positive feedback but no one will share contact info
+
+## Common mistakes
+
+### 1. Asking about solutions
+
+"Would you use a tool that automatically generates API docs?"
+
+They'll say yes to be polite. Ask about the problem instead.
+
+### 2. Talking to the wrong people
+
+Your friends will be supportive. Talk to strangers who have the problem.
+
+### 3. Confusing interest with commitment
+
+**Interest**: "That sounds cool"
+**Commitment**: "Can I beta test?" / "Will you tell me when it launches?"
+
+Only commitment validates.
+
+### 4. Skipping validation because "you" have the problem
+
+You're one data point. Even if you have the problem, validate that others do too.
+
+## The validation threshold
+
+Before writing production code, have:
+
+✅ Talked to 5+ people with the problem
+✅ Heard specific, recent pain points
+✅ Seen evidence of workarounds or paid solutions
+✅ Got some commitment (email, follow, beta request)
+
+Without these, you're building on assumptions.
+
+## For frontend engineers
+
+You might think: "Validation isn't my job—that's PM's job."
+
+True for company work. False for:
+- Side projects
+- Feature proposals
+- Technical solutions
+
+When you propose "Let's rebuild this in React Server Components," validate:
+- What problem does it solve?
+- Who's experiencing this problem?
+- What's the cost of not solving it?
+
+Product thinking applies to technical decisions too.
+
+---
+
+Next: Once the problem is validated, how do you turn it into a solution?
