@@ -11,7 +11,7 @@ export default function Page() {
     .filter((post) => post.data.category === 'open-house')
     .sort(
       (a, b) =>
-        new Date(a.data.date ?? getName(b.path)).getTime() -
+        new Date(b.data.date ?? getName(b.path)).getTime() -
         new Date(a.data.date ?? getName(a.path)).getTime(),
     );
 
