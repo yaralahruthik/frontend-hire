@@ -1,0 +1,338 @@
+---
+title: Measuring What Matters
+description: Track metrics that drive decisions, not vanity numbers
+---
+
+Metrics lie. Unless you know what to measure.
+
+Most founders track everything and understand nothing. Don't be most founders.
+
+## The metric problem
+
+You can measure thousands of things:
+- Page views
+- Bounce rate
+- Session duration
+- Button clicks
+- Feature adoption
+- Scroll depth
+- Time to interactive
+
+**But which ones actually matter?**
+
+## Good metrics vs vanity metrics
+
+### Vanity metrics
+
+Numbers that look good but don't drive decisions.
+
+**Examples:**
+- **Page views**: Bots and bounces count too
+- **Signups**: Free signups that never use the product
+- **Social followers**: Followers who never engage
+- **App downloads**: Downloads that never open
+
+**Why they're bad**: They make you feel good but tell you nothing about product health.
+
+### Good metrics
+
+Numbers that tell you if your product is working.
+
+**Examples:**
+- **Weekly active users**: Are people coming back?
+- **Retention rate**: Do users stay?
+- **Time to value**: How fast do users get value?
+- **Completion rate**: Do users finish key actions?
+
+**Why they're good**: They tell you if you're solving the problem.
+
+## The one metric that matters
+
+For any product, one metric captures success better than others.
+
+### Examples by product type
+
+**SaaS product**:
+- One metric: **Weekly active users who completed core action**
+- Core action: Thing that delivers value (sent email, created doc, ran analysis)
+
+**Content platform**:
+- One metric: **Return visitor rate**
+- Why: One-time visitors don't build a business
+
+**Marketplace**:
+- One metric: **Successful transactions per week**
+- Why: Both sides need to transact
+
+**Tool/Utility**:
+- One metric: **Problems solved per user**
+- Why: Tools exist to solve problems
+
+### How to find yours
+
+Ask: "If this number goes up, does the product definitely work?"
+
+**Test:**
+- Page views up, but nobody signs up? → Bad metric
+- Signups up, but nobody uses product? → Bad metric
+- Weekly usage up? → Good metric
+
+## The metrics framework
+
+Track three categories:
+
+### 1. Acquisition (How do people find you?)
+
+**Basic:**
+- Visits per source (Twitter, HN, Google)
+- Signup rate (visits → signups)
+
+**Don't track yet:**
+- SEO rankings
+- Ad performance
+- Attribution modeling
+
+Early stage: You just need to know what's working.
+
+### 2. Activation (Do they get value?)
+
+**Track:**
+- Time to first value (signup → core action)
+- Completion rate for core flow
+- Drop-off points
+
+**Example (todo app):**
+- % who create first task
+- Time from signup to first task
+- % who complete first task
+
+If users don't complete the core action, nothing else matters.
+
+### 3. Retention (Do they come back?)
+
+**Most important category.**
+
+**Track:**
+- Day 1 return rate
+- Day 7 return rate
+- Day 30 return rate
+
+**Why it matters:**
+- 40% Day 1 return = Good product
+- 20% Day 7 return = Growing product
+- 10% Day 30 return = Sustainable product
+
+**Without retention, you have a leaky bucket.** All the signups in the world won't help.
+
+## Setting up metrics (simple way)
+
+### Week 1: Just logs
+
+Don't build a dashboard. Just log events:
+
+```javascript
+// When user signs up
+console.log('User signed up:', userId, timestamp)
+
+// When user completes core action
+console.log('Core action completed:', userId, timestamp)
+```
+
+Save these to a simple table. Query manually.
+
+### Week 2-4: Basic analytics
+
+Use free tools:
+- **Plausible/Simple Analytics**: Page views and sources
+- **PostHog (free tier)**: Events and funnels
+- **Database queries**: Custom metrics
+
+**Don't use yet:**
+- Mixpanel (overkill)
+- Amplitude (overkill)
+- Custom dashboard (waste of time)
+
+### Month 2+: Graduate to real tools
+
+Once you have 100+ users, upgrade:
+- PostHog paid tier
+- Mixpanel
+- Custom dashboard
+
+But not before.
+
+## What to track when
+
+### First week after launch
+
+Track only:
+- How many people visit
+- How many sign up
+- How many complete core action
+
+That's it. Three numbers.
+
+### First month
+
+Add:
+- Where users come from
+- Day 1 and Day 7 return rate
+- Top drop-off points
+
+### After product-market fit
+
+Add everything else:
+- Feature adoption
+- Session duration
+- Cohort analysis
+- Revenue metrics
+
+**Don't track detailed metrics before you have basic product-market fit.**
+
+## How to use metrics
+
+### The weekly review
+
+Every Monday, look at:
+1. **New users last week**: Going up?
+2. **Retention**: Coming back?
+3. **Core action completion**: Getting value?
+
+**If any are dropping, investigate.**
+
+### The decision framework
+
+Before building a feature, ask:
+
+"Which metric will this improve?"
+
+**If you can't answer, don't build it.**
+
+**Examples:**
+- "Dark mode" → No clear metric → Low priority
+- "Faster onboarding" → Improves activation → High priority
+- "Social sharing" → Improves acquisition → Medium priority
+
+## Common metric mistakes
+
+### 1. Tracking too much too early
+
+**Bad**: 50 different events on Day 1
+**Good**: 3 core events on Day 1
+
+Focus beats data.
+
+### 2. Ignoring retention
+
+**Bad**: 1000 signups, 5% return
+**Good**: 100 signups, 40% return
+
+Retention > volume
+
+### 3. Measuring activity, not value
+
+**Bad**: "Users clicked 50 buttons"
+**Good**: "Users solved their problem"
+
+Activity ≠ value
+
+### 4. Comparing to others
+
+**Bad**: "Our competitors have higher engagement"
+**Good**: "Our retention is improving week over week"
+
+Compare to yourself, not others.
+
+## The metric evolution
+
+### Stage 1: Validation (0-10 users)
+
+**Track**: Do people use it at all?
+**Metric**: Core action completion rate
+
+### Stage 2: Retention (10-100 users)
+
+**Track**: Do people come back?
+**Metric**: Day 7 return rate
+
+### Stage 3: Growth (100-1000 users)
+
+**Track**: Can we grow sustainably?
+**Metrics**: Acquisition channels, retention cohorts
+
+### Stage 4: Scale (1000+ users)
+
+**Track**: Can we scale without breaking?
+**Metrics**: Everything
+
+Don't skip stages.
+
+## For frontend engineers
+
+### What to instrument
+
+**In your side project:**
+```javascript
+// Track page views
+analytics.page()
+
+// Track core actions
+analytics.track('Task Created')
+analytics.track('Task Completed')
+analytics.track('Project Shared')
+```
+
+That's it. Don't track:
+- Mouse movements
+- Scroll depth
+- Every button click
+
+Track outcomes, not interactions.
+
+### At work
+
+Ask PM: "What metric are we trying to improve?"
+
+If they don't know, the feature isn't thought through.
+
+**Good answer**: "Increase Day 7 retention from 20% to 25%"
+**Bad answer**: "Make the product better"
+
+## The metric health check
+
+Your metrics are good if:
+
+✅ You can explain each one in one sentence
+✅ Each one tells you something actionable
+✅ You check them weekly (not daily)
+✅ You can tie features to metrics
+✅ Metrics actually change your decisions
+
+Your metrics are bad if:
+
+❌ You have 20+ dashboards
+❌ Numbers look good but product feels off
+❌ You're not sure what to improve
+❌ You track everything "just in case"
+
+## The measurement philosophy
+
+**Measure to learn, not to brag.**
+
+Good metrics:
+- Help you make decisions
+- Tell you what's broken
+- Show you what's working
+- Guide your roadmap
+
+Bad metrics:
+- Make you feel good
+- Look impressive on Twitter
+- Don't drive action
+- Create busywork
+
+**If a metric doesn't change your behavior, stop tracking it.**
+
+---
+
+Next: Course summary and putting it all together.
