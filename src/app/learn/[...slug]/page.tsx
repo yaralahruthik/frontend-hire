@@ -4,7 +4,6 @@ import PageAdvertisement from '@/features/advertise/page-advertisement';
 import { createMetadata } from '@/lib/metadata';
 import { getPageImage, source } from '@/lib/source';
 import { getMDXComponents } from '@/mdx-components';
-import { getGithubLastEdit } from 'fumadocs-core/content/github';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import {
   DocsBody,
@@ -24,14 +23,8 @@ export default async function Page(props: PageProps<'/learn/[...slug]'>) {
   const isQuestionsPage = page.slugs.includes('questions');
   const isOverviewPage = page.slugs.at(-1) === 'overview';
   const advertisementKey = page.slugs.join('-') as ContentOverviewKeyType;
-  const time =
-    process.env.NODE_ENV === 'production'
-      ? await getGithubLastEdit({
-          owner: 'yaralahruthik',
-          repo: 'frontend-hire',
-          path: `content/learn/${page.path}`,
-        })
-      : null;
+
+  const time = page.data.lastModified;
 
   return (
     <DocsPage

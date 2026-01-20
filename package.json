@@ -15,14 +15,15 @@
   },
   "dependencies": {
     "@takumi-rs/image-response": "^0.51.0",
-    "fumadocs-core": "16.0.11",
-    "fumadocs-mdx": "13.0.8",
-    "fumadocs-ui": "16.0.11",
+    "fumadocs-core": "16.4.7",
+    "fumadocs-mdx": "14.2.6",
+    "fumadocs-ui": "16.4.7",
     "lucide-react": "^0.552.0",
-    "next": "16.0.7",
+    "next": "16.1.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "zod": "^4.1.12"
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",

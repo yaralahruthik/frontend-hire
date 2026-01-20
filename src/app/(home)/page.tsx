@@ -210,7 +210,7 @@ function SupportUsButton() {
           />
         </svg>
       </div>
-      <span className="absolute bottom-0 left-4.5 h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
+      <span className="absolute bottom-0 left-4.5 h-px w-[calc(100%-2.25rem)] bg-linear-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40" />
     </Link>
   );
 }
@@ -345,7 +345,7 @@ function TesimonialSection() {
 
 export default function HomePage() {
   return (
-    <main className="container flex grow flex-col">
+    <main className="container mx-auto flex grow flex-col">
       <HeroSection />
 
       <TesimonialSection />
