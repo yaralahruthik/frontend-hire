@@ -1,7 +1,0 @@
-{
-  "title": "Software Engineering",
-  "description": "Learn domain agnostic skills",
-  "icon": "Laptop",
-  "root": true,
-  "pages": ["---Introduction---", "index"]
-}
