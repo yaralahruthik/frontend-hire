@@ -40,17 +40,6 @@ export function baseOptions(): BaseLayoutProps {
             url: '/learn/frontend',
           },
           {
-            text: 'Software Engineering Fundamentals',
-            description:
-              'Irrespective of frontend or backend, you need to learn these',
-            url: '/learn/software-engineering-fundamentals',
-          },
-          {
-            text: 'Applied AI',
-            description: 'Learn Applied AI Skills',
-            url: '/learn/ai',
-          },
-          {
             text: 'Product',
             description: 'Learn product skills',
             url: '/learn/product',
