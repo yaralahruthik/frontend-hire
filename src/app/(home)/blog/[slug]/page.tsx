@@ -21,11 +21,11 @@ export default async function Page(props: PageProps<'/blog/[slug]'>) {
 
   return (
     <>
-      <div className="container mt-4 rounded-xl border p-8">
+      <div className="container mx-auto mt-4 rounded-xl border p-8">
         <h1 className="mb-2 text-3xl font-bold">{page.data.title}</h1>
         <p className="text-fd-muted-foreground mb-4">{page.data.description}</p>
       </div>
-      <article className="container flex flex-col px-0 py-8 lg:flex-row lg:px-4">
+      <article className="container mx-auto flex flex-col px-0 py-8 lg:flex-row lg:px-4">
         <div className="prose min-w-0 flex-1 p-4">
           <InlineTOC items={toc} />
           <MDX

@@ -16,7 +16,7 @@ export default function Page() {
     );
 
   return (
-    <main className="container max-sm:px-0 md:py-12">
+    <main className="container mx-auto max-sm:px-0 md:py-12">
       <div className="p-8">
         <h1 className="border-fd-foreground mb-4 border-b-4 pb-2 text-4xl font-bold md:text-5xl">
           Open Houses

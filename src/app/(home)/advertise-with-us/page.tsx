@@ -61,7 +61,7 @@ function CTABlock() {
 
 export default function AdvertisePage() {
   return (
-    <main className="container py-12">
+    <main className="container mx-auto py-12">
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-3">
           <h1 className="text-2xl font-bold sm:text-4xl">Advertise With Us</h1>
