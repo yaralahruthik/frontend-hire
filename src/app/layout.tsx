@@ -27,7 +27,7 @@ export default function Layout({ children }: LayoutProps<'/'>) {
       <Script
         defer
         data-domain="frontendhire.com"
-        src="https://plausible.withyhr.com/js/script.js"
+        src="https://plausible.iamyhr.com/js/script.js"
       ></Script>
       <body className="flex min-h-screen flex-col">
         <TopBannerAdvertisement advertisement={ADVERTISEMENTS.TOP_BANNER} />
